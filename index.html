@@ -2835,9 +2835,604 @@
                 }
             ],
             // B2-B13 目前為空數組，後續可以添加題目
-            "B2": [],
-            "B3": [],
-            "B4": [],
+            "B2": [        {
+            id: 1,
+            text: "Given the joint probability distribution table, the expected value of X is closest to:",
+            options: [
+                "1.2",
+                "1.6",
+                "1.5",
+                "1.8"
+            ],
+            correctAnswer: 1,
+            explanation: "p(X = 1) = 0.05 + 0.15 + 0.20 = 0.40; p(X = 2) = 0.15 + 0.15 + 0.30 = 0.60; E(X) = 0.40(1) + 0.60(2) = 1.6",
+            module: "Book 2, Module 13.1, LO 13.b"
+        },
+        {
+            id: 2,
+            text: "Given the joint probability distribution table, the variance of Y is closest to:",
+            options: [
+                "2.27",
+                "0.61",
+                "0.76",
+                "1.51"
+            ],
+            correctAnswer: 1,
+            explanation: "p(Y = 1) = 0.05 + 0.15 = 0.20; p(Y = 2) = 0.15 + 0.15 = 0.30; p(Y = 3) = 0.20 + 0.30 = 0.50; μ = 0.20(1) + 0.30(2) + 0.50(3) = 2.3; Variance = 0.20(1 - 2.3)² + 0.30(2 - 2.3)² + 0.50(3 - 2.3)² = 0.61",
+            module: "Book 2, Module 13.1, LO 13.b"
+        },
+        {
+            id: 3,
+            text: "Given the joint probability distribution table, the expected value of Y is closest to:",
+            options: [
+                "0.2",
+                "2.2",
+                "1.0",
+                "2.3"
+            ],
+            correctAnswer: 1,
+            explanation: "p(Y = 1) = 0.05 + 0.05 + 0.15 = 0.25; p(Y = 2) = 0.05 + 0.10 + 0.15 = 0.30; p(Y = 3) = 0.10 + 0.15 + 0.20 = 0.45; E(Y) = 0.25(1) + 0.30(2) + 0.45(3) = 2.20",
+            module: "Book 2, Module 13.1, LO 13.b"
+        },
+        {
+            id: 4,
+            text: "Given the joint probability distribution table, the variance of X is closest to:",
+            options: [
+                "0.74",
+                "0.67",
+                "0.54",
+                "0.61"
+            ],
+            correctAnswer: 3,
+            explanation: "p(X = 1) = 0.05 + 0.05 + 0.10 = 0.20; p(X = 2) = 0.05 + 0.10 + 0.15 = 0.30; p(X = 3) = 0.15 + 0.15 + 0.20 = 0.50; μ = 0.20(1) + 0.30(2) + 0.50(3) = 2.3; Variance = 0.20(1 - 2.3)² + 0.30(2 - 2.3)² + 0.50(3 - 2.3)² = 0.61",
+            module: "Book 2, Module 13.1, LO 13.b"
+        },
+        {
+            id: 5,
+            text: "Using the probability distribution table, calculate the standard deviation for the portfolio:",
+            options: [
+                "7.0%",
+                "6.0%",
+                "5.5%",
+                "6.5%"
+            ],
+            correctAnswer: 2,
+            explanation: "[0.30 × (0.15 - 0.066)² + 0.70 × (0.03 - 0.066)²]¹/² = 5.5%",
+            module: "Book 2, Module 13.2, LO 13.c"
+        },
+        {
+            id: 6,
+            text: "An investor is considering purchasing ACQ. There is a 30% probability that ACQ will be acquired in the next two months. If ACQ is acquired, there is a 40% probability of earning a 30% return and a 60% probability of earning 25%. If ACQ is not acquired, the expected return is 12%. What is the expected return?",
+            options: [
+                "16.5%",
+                "17.4%",
+                "12.3%",
+                "18.3%"
+            ],
+            correctAnswer: 0,
+            explanation: "E(r) = (0.70 × 0.12) + (0.30 × 0.40 × 0.30) + (0.30 × 0.60 × 0.25) = 0.165 = 16.5%",
+            module: "Book 2, Module 13.1, LO 13.b"
+        },
+        {
+            id: 7,
+            text: "Given the economic scenarios table, what is the expected return on portfolio A?",
+            options: [
+                "9.25%",
+                "12.95%",
+                "10.75%",
+                "11.55%"
+            ],
+            correctAnswer: 3,
+            explanation: "E(R) = (0.15)(0.17) + (0.20)(0.14) + (0.25)(0.12) + (0.40)(0.08) = 0.1155 = 11.55%",
+            module: "Book 2, Module 13.1, LO 13.b"
+        },
+        {
+            id: 8,
+            text: "An analyst has knowledge of the beginning-of-period expected returns, standard deviations of return, and market value weights for the assets that comprise a portfolio. The analyst does not require the covariances of returns between asset pairs to calculate the:",
+            options: [
+                "variance of the return on the portfolio.",
+                "expected return on the portfolio.",
+                "reduction in risk due to diversification.",
+                "correlations between asset pairs."
+            ],
+            correctAnswer: 1,
+            explanation: "All that is required to calculate the expected return for the portfolio is the portfolio weights and individual asset expected returns. All other items are functions of the covariance.",
+            module: "Book 2, Module 13.1, LO 13.b"
+        },
+        {
+            id: 9,
+            text: "Given the economic scenarios table, what is the standard deviation of returns on portfolio A?",
+            options: [
+                "8.76%",
+                "1.140%",
+                "5.992%",
+                "4.53%"
+            ],
+            correctAnswer: 3,
+            explanation: "E(R_A) = 11.65%; σ² = 0.0020506 = 0.15(0.18 - 0.1165)² + 0.2(0.17 - 0.1165)² + 0.25(0.11 - 0.1165)² + 0.4(0.07 - 0.1165)²; σ = 0.0452836 = 4.53%",
+            module: "Book 2, Module 13.1, LO 13.a"
+        },
+        {
+            id: 10,
+            text: "There is a 30% chance that the economy will be good and a 70% chance that it will be bad. If the economy is good, your returns will be 20% and if the economy is bad, your returns will be 10%. What is your expected return?",
+            options: [
+                "13%",
+                "18%",
+                "15%",
+                "17%"
+            ],
+            correctAnswer: 0,
+            explanation: "E(R) = (0.3 × 0.2) + (0.7 × 0.1) = 0.06 + 0.07 = 0.13 = 13%",
+            module: "Book 2, Module 13.1, LO 13.b"
+        }],
+            "B3": [        {
+            id: 1,
+            text: "The lower limit of a normal distribution is:",
+            options: [
+                "negative one.",
+                "one.",
+                "zero.",
+                "negative infinity."
+            ],
+            correctAnswer: 3,
+            explanation: "By definition, a true normal distribution has a positive probability density function from negative to positive infinity.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 2,
+            text: "Which of the following statements about probability distributions is least accurate?",
+            options: [
+                "A probability distribution is, by definition, normally distributed.",
+                "A probability distribution includes a listing of all the possible outcomes of an experiment.",
+                "In a binomial distribution each observation has only two possible outcomes that are mutually exclusive.",
+                "One of the key properties of a probability function is 0 ≤ p ≤ 1."
+            ],
+            correctAnswer: 0,
+            explanation: "Probabilities must be zero or positive, but a probability distribution is not necessarily normally distributed. Binomial distributions are either successes or failures.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 3,
+            text: "Consider the following ANOVA table. The F-statistic for the test of the fit of the model is closest to:",
+            options: [
+                "False",
+                "0.25",
+                "0.20",
+                "10.00"
+            ],
+            correctAnswer: 3,
+            explanation: "F = MSR / MSE = 20 / 2 = 10",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 4,
+            text: "Approximately 50 percent of all observations for a normally distributed random variable fall in the interval:",
+            options: [
+                "μ ± σ",
+                "μ ± 0.67σ",
+                "μ ± 3σ",
+                "μ ± 2σ"
+            ],
+            correctAnswer: 1,
+            explanation: "μ ± 0.67σ",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 5,
+            text: "Standardizing a normally distributed random variable requires the:",
+            options: [
+                "mean and the standard deviation.",
+                "variance and kurtosis.",
+                "natural logarithm of X.",
+                "mean, variance and skewness."
+            ],
+            correctAnswer: 0,
+            explanation: "All that is necessary is to know the mean and the variance. Subtracting the mean from the random variable and dividing the difference by the standard deviation standardizes the variable.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 6,
+            text: "Which of the following statements about a normal distribution is least accurate?",
+            options: [
+                "The mean and variance completely define a normal distribution. Approximately 68% of the observations lie within +/- 1 standard deviation of the mean.",
+                "The mean, median, and mode are equal.",
+                "The mean, median, and mode are equal.",
+                "A normal distribution has excess kurtosis of three."
+            ],
+            correctAnswer: 3,
+            explanation: "Even though normal curves have different sizes, they all have identical shape characteristics. The kurtosis for all normal distributions is three; an excess kurtosis of three would indicate a leptokurtic distribution. The other choices are true.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 7,
+            text: "A food retailer has determined that the mean household income of her customers is $47,500 with a standard deviation of $12,500. What percentage of households in her customer base has incomes of $60,000 or more?",
+            options: [
+                "34.13%",
+                "2.50%",
+                "5.00%",
+                "15.87%"
+            ],
+            correctAnswer: 3,
+            explanation: "Z = ($60,000 - $47,500) / $12,500 = 1.0; From the table of areas under the normal curve, 84.13% of observations lie to the left of +1 standard deviation of the mean. So, 100% - 84.13% = 15.87% with incomes of $60,000 or more.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 8,
+            text: "An analyst has determined that the probability that the S&P 500 index will increase on any given day is 0.60. The expected value and variance of the number of up days in a 5-day period are closest to:",
+            options: [
+                "3.0 and 1.1",
+                "3.0 and 1.2",
+                "2.0 and 0.5",
+                "2.0 and 2.1"
+            ],
+            correctAnswer: 1,
+            explanation: "E(X) = np = 5(0.60) = 3.0; Var(X) = np(1 - p) = 5(0.60)(0.40) = 1.2",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 9,
+            text: "A normal distribution can be completely described by its:",
+            options: [
+                "mean and mode.",
+                "skewness and kurtosis.",
+                "mean and variance.",
+                "standard deviation."
+            ],
+            correctAnswer: 2,
+            explanation: "The normal distribution can be completely described by its mean and variance.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 10,
+            text: "A dependent variable is regressed against three independent variables across 25 observations. The regression sum of squares is 119.25, and the total sum of squares is 294.45. What is the p-value for the test of the hypothesis that all three of the coefficients are equal to zero?",
+            options: [
+                "Greater than 0.10.",
+                "lower than 0.025.",
+                "Between 0.025 and 0.05.",
+                "Between 0.05 and 0.10."
+            ],
+            correctAnswer: 1,
+            explanation: "MSR = 119.25 / 3 = 39.75; RSS = 294.45 - 119.25 = 175.20; df = 25 - 3 - 1 = 21; MSE = 175.20 / 21 = 8.34; F = 39.75 / 8.34 = 4.76; p-value < 0.025",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 11,
+            text: "A group of investors wants to be sure to always earn at least a 5% rate of return. They are looking at an investment with expected return of 10% and standard deviation of 5%. The probability of meeting or exceeding the desired return is closest to:",
+            options: [
+                "84%",
+                "34%",
+                "50%",
+                "98%"
+            ],
+            correctAnswer: 0,
+            explanation: "5% is one standard deviation less than the mean (10% - 5% = 5%). 34% of observations are between the mean and one standard deviation on the down side. 50% are greater than the mean. Probability = 34% + 50% = 84%",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 12,
+            text: "Which of the following statements about the normal probability distribution is most accurate?",
+            options: [
+                "The standardized normal distribution has a mean of zero and a standard deviation of 10.",
+                "The normal curve is asymmetrical about its mean.",
+                "Sixty-eight percent of the area under the normal curve falls between 0 and +1 standard deviations above the mean.",
+                "Five percent of the normal curve probability falls more than outside two standard deviations from the mean."
+            ],
+            correctAnswer: 3,
+            explanation: "The normal curve is symmetrical with a mean of zero and a standard deviation of 1. Ninety-five percent of the normal curve is within two standard deviations of the mean, so five percent falls outside two standard deviations.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 13,
+            text: "Which one of the following statements about the t-distribution is most accurate?",
+            options: [
+                "Compared to the normal distribution, the t-distribution is more peaked with more area under the tails.",
+                "Compared to the normal distribution, the t-distribution is flatter with less area under the tails.",
+                "The t-distribution approaches the standard normal distribution as the number of degrees of freedom becomes large.",
+                "The t-distribution is the appropriate distribution to use when constructing confidence intervals based on large samples."
+            ],
+            correctAnswer: 2,
+            explanation: "As the number of degrees of freedom grows, the t-distribution approaches the shape of the standard normal distribution. Compared to the normal distribution, the t-distribution is less peaked with more area under the tails.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 14,
+            text: "A client will move his investment account unless the portfolio manager earns at least a 10% rate of return. The rate of return has a normal distribution with expected return of 19% and standard deviation of 4.5%. What is the probability that the portfolio manager will keep this account?",
+            options: [
+                "0.977",
+                "1.000",
+                "0.750",
+                "0.950"
+            ],
+            correctAnswer: 0,
+            explanation: "Z = (10 - 19) / 4.5 = -2; P(Z ≥ -2) = 1 - 0.0228 = 0.9772 ≈ 0.977",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 15,
+            text: "For the investments shown in the table, what are the mean, median, and mode of the returns?",
+            options: [
+                "Mean 12.00%, Median 12%, Mode 12%",
+                "Mean 11.20%, Median 12%, Mode 12%",
+                "Mean 10.71%, Median 9%, Mode 13%",
+                "Mean 10.71%, Median 12%, Mode 12%"
+            ],
+            correctAnswer: 3,
+            explanation: "Mean = 75 / 7 = 10.71%; Median = 12% (middle value); Mode = 12% (most frequent)",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 16,
+            text: "For a normal distribution, what approximate percentage of the observations falls within ± 2 standard deviations of the mean?",
+            options: [
+                "90%",
+                "95%",
+                "92%",
+                "99%"
+            ],
+            correctAnswer: 1,
+            explanation: "For normal distributions, approximately 95 percent of the observations fall within ± 2 standard deviations of the mean.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 17,
+            text: "Which of the following statements is incorrect regarding a Bernoulli distributed random variable?",
+            options: [
+                "It only has three possible outcomes.",
+                "It is commonly used for assessing whether or not a company defaults during a specified time period.",
+                "Both I and II.",
+                "Neither I nor II."
+            ],
+            correctAnswer: 0,
+            explanation: "Bernoulli distributed random variable only has two possible outcomes. The outcomes can be defined as either a 'success' or a 'failure'.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 18,
+            text: "The distribution of annual returns for a bond portfolio is approximately normal with expected value of $120 million and standard deviation of $20 million. What is the probability that the value will be between $110 million and $170 million?",
+            options: [
+                "74%",
+                "58%",
+                "66%",
+                "42%"
+            ],
+            correctAnswer: 2,
+            explanation: "z₁ = (110 - 120)/20 = -0.5; z₂ = (170 - 120)/20 = 2.5; P(-0.5 < X < 2.5) = 0.9938 - 0.3085 = 0.6853 ≈ 68.5% ≈ 66%",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 19,
+            text: "The probability of returns less than -10%, assuming a normal distribution with expected return of 6.5% and standard deviation of 10%, is:",
+            options: [
+                "less than 2.5%",
+                "approximately 5%",
+                "not defined with only this information",
+                "approximately 10%"
+            ],
+            correctAnswer: 1,
+            explanation: "-10 is 16.5% below the mean return, (16.5 / 10) = 1.65 standard deviations, which leaves approximately 5% of the possible outcomes in the left tail below -10%.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 20,
+            text: "Which statement best describes the properties of Student's t-distribution?",
+            options: [
+                "skewed, defined by a single parameter and is more peaked than the normal distribution.",
+                "symmetrical, defined by a single parameter and is less peaked than the normal distribution.",
+                "symmetrical, defined by two parameters and is less peaked than the normal distribution.",
+                "skewed, defined by a single parameter and is less peaked than the normal distribution."
+            ],
+            correctAnswer: 1,
+            explanation: "The t-distribution is symmetrical like the normal distribution but unlike the normal distribution is defined by a single parameter known as the degrees of freedom and is less peaked than the normal distribution.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 21,
+            text: "Given the probabilities N(-0.5) = 0.3085, N(0.75) = 0.7734, and N(1.50) = 0.9332 from a z-table, the probability of 0.2266 corresponds to:",
+            options: [
+                "N(0.50)",
+                "N(-0.25)",
+                "N(-0.75)",
+                "N(0.25)"
+            ],
+            correctAnswer: 2,
+            explanation: "The area to the right of 0.75 is (1.0 - 0.7734) = 0.2266. Since the halves of a normal distribution are symmetrical, that means the area to the left of (-0.75) is also 0.2266.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 22,
+            text: "Which one of the following distributions is described entirely by the degrees of freedom?",
+            options: [
+                "Normal distribution.",
+                "Student's t-distribution.",
+                "Binomial distribution.",
+                "Lognormal distribution."
+            ],
+            correctAnswer: 1,
+            explanation: "Student's t-distribution is defined by a single parameter known as the degrees of freedom.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 23,
+            text: "Which of the following statements is true regarding the mixture of distributions for risk modeling?",
+            options: [
+                "Distributions should never be combined.",
+                "It may be helpful to create a new distribution if the underlying data you are working with does not currently fit a pre-determined distribution.",
+                "Both I and II.",
+                "Neither I nor II."
+            ],
+            correctAnswer: 1,
+            explanation: "Distributions can be combined to create unique probability density functions. It may be helpful to create a new distribution if the underlying data you are working with does not currently fit a pre-determined distribution.",
+            module: "Book 2, Module 14.3, LO 14.b"
+        },
+        {
+            id: 24,
+            text: "An investment has a mean return of 15% and a standard deviation of returns equal to 10%. Which of the following statements is least accurate?",
+            options: [
+                "less than 5% is 0.16.",
+                "greater than 35% is 0.025.",
+                "greater than 25% is 0.32.",
+                "between 5% and 25% is 0.68."
+            ],
+            correctAnswer: 2,
+            explanation: "The probability of an observation greater than 25 is half of the remaining 32%, or 16%. This is the same probability as an observation less than 5.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 25,
+            text: "A study of hedge fund investors found that their household incomes are normally distributed with a mean of $280,000 and a standard deviation of $40,000. The percentage of hedge fund investors that have incomes greater than $350,000 is closest to:",
+            options: [
+                "3.0%",
+                "25.0%",
+                "4.0%",
+                "5.0%"
+            ],
+            correctAnswer: 2,
+            explanation: "z = (350,000 - 280,000) / 40,000 = 1.75; F(1.75) = 0.9599; Percentage greater than $350,000 = (1 - 0.9599) = 4.0%",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 26,
+            text: "The percentage of hedge fund investors with income less than $180,000 is closest to:",
+            options: [
+                "2.50%",
+                "0.62%",
+                "6.48%",
+                "1.15%"
+            ],
+            correctAnswer: 1,
+            explanation: "z = (180,000 - 280,000) / 40,000 = -2.50; F(-2.50) = (1 - 0.9938) = 0.62%",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 27,
+            text: "The return on a portfolio is normally distributed with a mean return of 8 percent and a standard deviation of 18 percent. Which is closest to the probability that the return will be between -27.3 percent and 37.7 percent?",
+            options: [
+                "92.5%",
+                "68.0%",
+                "81.5%",
+                "96.5%"
+            ],
+            correctAnswer: 0,
+            explanation: "-27.3% is -1.96 standard deviations; 37.7% is 1.65 standard deviations; Probability = (95%/2) + (90%/2) = 47.5% + 45% = 92.5%",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 28,
+            text: "The annual returns for a portfolio are normally distributed with expected value of £50 million and standard deviation of £25 million. What is the probability that the value will be between £91.13 million and £108.25 million?",
+            options: [
+                "0.040",
+                "0.075",
+                "0.090",
+                "0.025"
+            ],
+            correctAnswer: 0,
+            explanation: "Z₁ = (91.13 - 50)/25 = 1.645; Z₂ = (108.25 - 50)/25 = 2.33; F(1.645) = 0.95; F(2.33) = 0.99; Probability = 0.99 - 0.95 = 0.04",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 29,
+            text: "Regarding a binomially distributed random variable, the variance of the number of successes, X, where n equals the number of trials and p equals the probability of success, is most likely equal to:",
+            options: [
+                "p(1 - p)",
+                "p",
+                "np(1 - p)",
+                "np"
+            ],
+            correctAnswer: 2,
+            explanation: "For a given series of n trials, the variance of X for a binomial random variable is equal to: np(1 - p) = npq, where q is the probability of failure.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 30,
+            text: "A call center receives an average of two phone calls per hour. The probability that they will receive 20 calls in an 8-hour day is closest to:",
+            options: [
+                "3.66%",
+                "6.40%",
+                "5.59%",
+                "16.56%"
+            ],
+            correctAnswer: 2,
+            explanation: "λ = 2 × 8 = 16; P(X = 20) = (16²⁰ e⁻¹⁶) / 20! = 0.0559 = 5.59%",
+            module: "Book 2, Module 14.1, LO 14.a"
+        },
+        {
+            id: 31,
+            text: "Within 60 observations, what is the appropriate number of degrees of freedom to use when carrying out a statistical test on the mean of a population?",
+            options: [
+                "61",
+                "58",
+                "59",
+                "60"
+            ],
+            correctAnswer: 2,
+            explanation: "When performing a statistical test on the mean of a population based on a sample of size n, the number of degrees of freedom is n - 1. In this case: 60 - 1 = 59.",
+            module: "Book 2, Module 14.1, LO 14.a"
+        }],
+            "B4": [        {
+            id: 1,
+            text: "An investor has an equally weighted two-asset portfolio. The standard deviation of Asset 1 is 20% and the standard deviation of Asset 2 is 10%. Assuming the correlation between these two assets is 0.5, the standard deviation of this portfolio is closest to:",
+            options: [
+                "13.0%",
+                "5.5%",
+                "11.5%",
+                "15.0%"
+            ],
+            correctAnswer: 2,
+            explanation: "Variance = (0.5² × 0.2²) + (0.5² × 0.1²) + (2 × 0.5 × 0.5 × 0.2 × 0.1 × 0.5) = 0.01 + 0.0025 + 0.0005 = 0.013; Standard deviation = √0.013 = 0.114 = 11.4% ≈ 11.5%",
+            module: "Book 2, Module 15.3, LO 15.g"
+        },
+        {
+            id: 2,
+            text: "An analyst is examining the relationship between two random variables, RCRANTZ and GSTERN. He performs a linear regression: RCRANTZ = 61.4 - 5.9GSTERN. Which interpretation is least accurate?",
+            options: [
+                "The intercept term implies that if GSTERN is zero, RCRANTZ is 61.4.",
+                "In this regression, RCRANTZ is the dependent variable and GSTERN is the independent variable.",
+                "The covariance of RCRANTZ and GSTERN is negative.",
+                "If GSTERN increases by one unit, RCRANTZ should increase by 5.9 units."
+            ],
+            correctAnswer: 3,
+            explanation: "The slope coefficient is -5.9. This means a one unit increase of GSTERN suggests a decrease of 5.9 units of RCRANTZ, not an increase.",
+            module: "Book 2, Module 15.3, LO 15.f"
+        },
+        {
+            id: 3,
+            text: "Suppose you have chosen two stocks. Stock A: Expected Return 5%, Variance 10%. Stock B: Expected Return 8%, Variance 16%. Covariance(A,B) = 0.2. What is the mean and variance of the sum assuming the returns are independent?",
+            options: [
+                "Mean = 6.5%; Variance = 13.4%",
+                "Mean = 6.5%; Variance = 13.0%",
+                "Mean = 13%; Variance = 26.0%",
+                "Mean = 13%; Variance = 26.4%"
+            ],
+            correctAnswer: 2,
+            explanation: "E(A + B) = E(A) + E(B) = 5% + 8% = 13%; Var(A + B) = Var(A) + Var(B) = 10% + 16% = 26%",
+            module: "Book 2, Module 15.4, LO 15.j"
+        },
+        {
+            id: 4,
+            text: "Which of the following statements is correct regarding the correlation between two random variables? Correlation:",
+            options: [
+                "can take on extremely large values.",
+                "depends on the scales of random variables.",
+                "does not imply independence when it is equal to zero.",
+                "is expressed in terms of squared units."
+            ],
+            correctAnswer: 2,
+            explanation: "A correlation of 0 does not necessarily imply independence. Unlike correlation, covariance is difficult to interpret because it depends on the scales of random variables.",
+            module: "Book 2, Module 15.2, LO 15.e"
+        },
+        {
+            id: 5,
+            text: "Which of the following statements is true regarding the features of independent and identically distributed (iid) random variables?",
+            options: [
+                "The variance of the average of multiple iid random variables increases as the number of variables (n) increases.",
+                "The variance of the sum of n iid random variables is equal to nσ².",
+                "The variance of the sum of iid random variables grows nonlinearly.",
+                "The expected value of the sum of n iid random variables is equal to μ/n."
+            ],
+            correctAnswer: 1,
+            explanation: "Variance of the sum of n iid random variables is equal to nσ². The variance of the average decreases as n increases. Expected value of the sum is nμ.",
+            module: "Book 2, Module 15.4, LO 15.i"
+        }],
             "B5": [],
             "B6": [],
             "B7": [],
