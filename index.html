@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -505,6 +505,37 @@
                 grid-template-columns: 1fr;
             }
         }
+        
+        /* 新增：無題目提示樣式 */
+        .no-questions-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px 20px;
+            color: #95a5a6;
+        }
+        
+        .no-questions-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #bdc3c7;
+        }
+        
+        /* 新增：清空錯題庫按鈕 */
+        .clear-wrong-questions-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+        }
+        
+        .clear-wrong-questions-btn:hover {
+            background-color: #c0392b;
+        }
     </style>
 </head>
 <body>
@@ -579,10 +610,15 @@
     <!-- 錯題庫子目錄介面 -->
     <div id="wrong-questions-catalog" class="sub-catalog-container">
         <div class="sub-catalog-header">
-            <h2 class="sub-catalog-title">錯題庫</h2>
-            <button class="back-to-main" id="back-to-main-wrong-btn">
-                <i class="fas fa-arrow-left"></i> 返回主目錄
-            </button>
+            <h2 class="sub-catalog-title">錯題庫 <span id="wrong-questions-count-badge" class="wrong-count"></span></h2>
+            <div>
+                <button class="clear-wrong-questions-btn" id="clear-wrong-questions-btn">
+                    <i class="fas fa-trash-alt"></i> 清空錯題庫
+                </button>
+                <button class="back-to-main" id="back-to-main-wrong-btn">
+                    <i class="fas fa-arrow-left"></i> 返回主目錄
+                </button>
+            </div>
         </div>
         <div class="subdirectory-grid" id="wrong-questions-grid">
             <!-- 錯題分類將由JavaScript動態生成 -->
@@ -692,95 +728,94 @@
     </div>
     
     <footer>
-        <p>FRM題庫練習系統 &copy; 2023 | 基於Kaplan FRM題庫內容</p>
+        <p>FRM題庫練習系統 &copy; 2023 | 基於Kaplan FRM題庫內容 | 版本 3.0 - 完整題庫版</p>
     </footer>
 
-
     <script>
-        // 目錄結構
+        // 目錄結構 - 修正為動態計算題目數量
         const catalog = {
             "A": {
                 title: "Foundations of Risk Management",
                 description: "風險管理基礎知識",
                 subdirectories: [
-                    { id: "A1", name: "The Building Blocks of Risk Management", questionCount: 7 },
-                    { id: "A2", name: "How Do Firms Manage Financial Risk?", questionCount: 5 },
-                    { id: "A3", name: "The Governance of Risk Management", questionCount: 5 },
-                    { id: "A4", name: "Credit Risk Transfer Mechanisms", questionCount: 5 },
-                    { id: "A5", name: "Modern Portfolio Theory (MPT) and the Capital Asset Pricing Model (CAPM)", questionCount: 71 },
-                    { id: "A6", name: "The Arbitrage Pricing Theory and Multifactor Models of Risk and Return", questionCount: 9 },
-                    { id: "A7", name: "Risk Data Aggregation and Reporting Principles", questionCount: 5 },
-                    { id: "A8", name: "Enterprise Risk Management and Future Trends", questionCount: 5 },
-                    { id: "A9", name: "Learning From Financial Disasters", questionCount: 7 },
-                    { id: "A10", name: "Anatomy of the Great Financial Crisis of 2007-2009", questionCount: 5 },
-                    { id: "A11", name: "GARP Code of Conduct", questionCount: 7 }
+                    { id: "A1", name: "The Building Blocks of Risk Management" },
+                    { id: "A2", name: "How Do Firms Manage Financial Risk?" },
+                    { id: "A3", name: "The Governance of Risk Management" },
+                    { id: "A4", name: "Credit Risk Transfer Mechanisms" },
+                    { id: "A5", name: "Modern Portfolio Theory (MPT) and the Capital Asset Pricing Model (CAPM)" },
+                    { id: "A6", name: "The Arbitrage Pricing Theory and Multifactor Models of Risk and Return" },
+                    { id: "A7", name: "Risk Data Aggregation and Reporting Principles" },
+                    { id: "A8", name: "Enterprise Risk Management and Future Trends" },
+                    { id: "A9", name: "Learning From Financial Disasters" },
+                    { id: "A10", name: "Anatomy of the Great Financial Crisis of 2007-2009" },
+                    { id: "A11", name: "GARP Code of Conduct" }
                 ]
             },
             "B": {
                 title: "Quantitative Analysis",
                 description: "定量分析與統計方法",
                 subdirectories: [
-                    { id: "B1", name: "Fundamentals of Probability", questionCount: 21 },
-                    { id: "B2", name: "Random Variables", questionCount: 10 },
-                    { id: "B3", name: "Common Univariate Random Variables", questionCount: 31 },
-                    { id: "B4", name: "Multivariate Random Variables", questionCount: 5 },
-                    { id: "B5", name: "Sample Moments", questionCount: 55 },
-                    { id: "B6", name: "Hypothesis Testing", questionCount: 60 },
-                    { id: "B7", name: "Linear Regression", questionCount: 0 },
-                    { id: "B8", name: "Regression with Multiple Explanatory Variables", questionCount: 0 },
-                    { id: "B9", name: "Regression Diagnostics", questionCount: 0 },
-                    { id: "B10", name: "Stationary Time Series", questionCount: 0 },
-                    { id: "B11", name: "Nonstationary Time Series", questionCount: 0 },
-                    { id: "B12", name: "Measuring Return, Volatility, and Correlation", questionCount: 0 },
-                    { id: "B13", name: "Simulation and Bootstrapping", questionCount: 0 }
+                    { id: "B1", name: "Fundamentals of Probability" },
+                    { id: "B2", name: "Random Variables" },
+                    { id: "B3", name: "Common Univariate Random Variables" },
+                    { id: "B4", name: "Multivariate Random Variables" },
+                    { id: "B5", name: "Sample Moments" },
+                    { id: "B6", name: "Hypothesis Testing" },
+                    { id: "B7", name: "Linear Regression" },
+                    { id: "B8", name: "Regression with Multiple Explanatory Variables" },
+                    { id: "B9", name: "Regression Diagnostics" },
+                    { id: "B10", name: "Stationary Time Series" },
+                    { id: "B11", name: "Nonstationary Time Series" },
+                    { id: "B12", name: "Measuring Return, Volatility, and Correlation" },
+                    { id: "B13", name: "Simulation and Bootstrapping" }
                 ]
             },
             "C": {
                 title: "Financial Markets and Products",
                 description: "金融市場與產品",
                 subdirectories: [
-                    { id: "C1", name: "Banks", questionCount: 0 },
-                    { id: "C2", name: "Insurance Companies and Pension Plans", questionCount: 0 },
-                    { id: "C3", name: "Fund Management", questionCount: 0 },
-                    { id: "C4", name: "Introduction to Derivatives", questionCount: 0 },
-                    { id: "C5", name: "Exchanges and OTC Markets", questionCount: 0 },
-                    { id: "C6", name: "Central Clearing", questionCount: 0 },
-                    { id: "C7", name: "Futures Markets", questionCount: 0 },
-                    { id: "C8", name: "Using Futures for Hedging", questionCount: 0 },
-                    { id: "C9", name: "Foreign Exchange Markets", questionCount: 0 },
-                    { id: "C10", name: "Pricing Financial Forwards and Futures", questionCount: 0 },
-                    { id: "C11", name: "Commodity Forwards and Futures", questionCount: 0 },
-                    { id: "C12", name: "Options Markets", questionCount: 0 },
-                    { id: "C13", name: "Properties of Options", questionCount: 0 },
-                    { id: "C14", name: "Trading Strategies", questionCount: 0 },
-                    { id: "C15", name: "Exotic Options", questionCount: 0 },
-                    { id: "C16", name: "Properties of Interest Rates", questionCount: 0 },
-                    { id: "C17", name: "Corporate Bonds", questionCount: 0 },
-                    { id: "C18", name: "Mortgages and Mortgage-backed Securities", questionCount: 0 },
-                    { id: "C19", name: "Interest Rate Futures", questionCount: 0 },
-                    { id: "C20", name: "SWAPS", questionCount: 0 }
+                    { id: "C1", name: "Banks" },
+                    { id: "C2", name: "Insurance Companies and Pension Plans" },
+                    { id: "C3", name: "Fund Management" },
+                    { id: "C4", name: "Introduction to Derivatives" },
+                    { id: "C5", name: "Exchanges and OTC Markets" },
+                    { id: "C6", name: "Central Clearing" },
+                    { id: "C7", name: "Futures Markets" },
+                    { id: "C8", name: "Using Futures for Hedging" },
+                    { id: "C9", name: "Foreign Exchange Markets" },
+                    { id: "C10", name: "Pricing Financial Forwards and Futures" },
+                    { id: "C11", name: "Commodity Forwards and Futures" },
+                    { id: "C12", name: "Options Markets" },
+                    { id: "C13", name: "Properties of Options" },
+                    { id: "C14", name: "Trading Strategies" },
+                    { id: "C15", name: "Exotic Options" },
+                    { id: "C16", name: "Properties of Interest Rates" },
+                    { id: "C17", name: "Corporate Bonds" },
+                    { id: "C18", name: "Mortgages and Mortgage-backed Securities" },
+                    { id: "C19", name: "Interest Rate Futures" },
+                    { id: "C20", name: "SWAPS" }
                 ]
             },
             "D": {
                 title: "Valuation and Risk Management",
                 description: "估值與風險管理",
                 subdirectories: [
-                    { id: "D1", name: "Measures of Financial Risk", questionCount: 0 },
-                    { id: "D2", name: "Calculating and Applying VaR", questionCount: 0 },
-                    { id: "D3", name: "Measuring and Monitoring Volatility", questionCount: 0 },
-                    { id: "D4", name: "External and Internal Ratings", questionCount: 0 },
-                    { id: "D5", name: "Country Risk", questionCount: 0 },
-                    { id: "D6", name: "Measuring Credit Risk", questionCount: 0 },
-                    { id: "D7", name: "Operational Risk", questionCount: 0 },
-                    { id: "D8", name: "Stress-Testing", questionCount: 0 },
-                    { id: "D9", name: "Pricing Conventions, Discounting, and Arbitrage", questionCount: 0 },
-                    { id: "D10", name: "Interest Rates", questionCount: 0 },
-                    { id: "D11", name: "Bond Yields and Return Calculations", questionCount: 0 },
-                    { id: "D12", name: "Applying Duration, Convexity, and DV01", questionCount: 0 },
-                    { id: "D13", name: "Modeling and Hedging Non-Parallel Term Structure Shifts", questionCount: 0 },
-                    { id: "D14", name: "Binomial Trees", questionCount: 0 },
-                    { id: "D15", name: "The Black-Scholes-Merton Model", questionCount: 0 },
-                    { id: "D16", name: "Option Sensitivity Measures: The 'Greeks'", questionCount: 0 }
+                    { id: "D1", name: "Measures of Financial Risk" },
+                    { id: "D2", name: "Calculating and Applying VaR" },
+                    { id: "D3", name: "Measuring and Monitoring Volatility" },
+                    { id: "D4", name: "External and Internal Ratings" },
+                    { id: "D5", name: "Country Risk" },
+                    { id: "D6", name: "Measuring Credit Risk" },
+                    { id: "D7", name: "Operational Risk" },
+                    { id: "D8", name: "Stress-Testing" },
+                    { id: "D9", name: "Pricing Conventions, Discounting, and Arbitrage" },
+                    { id: "D10", name: "Interest Rates" },
+                    { id: "D11", name: "Bond Yields and Return Calculations" },
+                    { id: "D12", name: "Applying Duration, Convexity, and DV01" },
+                    { id: "D13", name: "Modeling and Hedging Non-Parallel Term Structure Shifts" },
+                    { id: "D14", name: "Binomial Trees" },
+                    { id: "D15", name: "The Black-Scholes-Merton Model" },
+                    { id: "D16", name: "Option Sensitivity Measures: The 'Greeks'" }
                 ]
             },
             "W": {
@@ -790,8 +825,7 @@
             }
         };
 
-
-        // 題庫數據 - 示例題目
+        // 題庫數據 - 完整FRM題目 (A. Foundations of Risk Management)
         const questionBanks = {
             "A1": [
                 {
@@ -858,40 +892,1673 @@
                     correctAnswer: 2,
                     explanation: "Market liquidity can be expressed in the following forms: (1) bid-ask spread, (2) market depth, and (3) market resiliency. The bid-ask spread can be thought of as the loss that would be sustained by a trader who sells an asset and then immediately buys it back. The higher the spread, the lower the market liquidity, and vice versa. The other choices refer to funding liquidity.",
                     module: "Book 1, Module 1.2, LO 1.f"
+                },
+                {
+                    id: 6,
+                    text: "Which of the following liquidity definitions is most likely associated with funding liquidity?",
+                    options: [
+                        "The loss that would be sustained by a trader who sells an asset and then immediately buys it back.",
+                        "The number of units of an asset a trader can buy or sell at the current market quote (bid and ask prices).",
+                        "The risk that investors may not be able to roll over short-term debt to finance the purchase of an asset.",
+                        "The length of time it will take an asset to regain its price after the price has fallen temporarily."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Funding liquidity can be expressed in the following forms: (1) margin/haircut funding risk, (2) rollover risk, and (3) redemption risk. Rollover risk refers to the risk that investors may not be able to roll over short-term debt to finance the purchase of an asset. The other choices refer to market liquidity.",
+                    module: "Book 1, Module 1.2, LO 1.f"
+                },
+                {
+                    id: 7,
+                    text: "The risk of sustaining significant losses due to the inability to take or exit a position at a fair price is most likely:",
+                    options: [
+                        "operational risk.",
+                        "liquidity risk.",
+                        "market risk.",
+                        "credit event risk."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Liquidity risk is the risk of sustaining significant losses due to the inability to take or exit a position at a fair price.",
+                    module: "Book 1, Module 1.2, LO 1.f"
                 }
             ],
             "A2": [
                 {
                     id: 1,
-                    text: "When evaluating methods to hedge operational and financial risks, including pricing, foreign currency, and interest rate risk, which of the following risks primarily pertain to the income statement?",
+                    text: "When evaluating methods to hedge operational and financial risks, including pricing, foreign currency, and interest rate risk, which of the following risks primarily pertain to the income statement? I. Hedging operational risk II. Hedging financial position risk",
                     options: [
-                        "Both hedging operational risk and hedging financial position risk.",
-                        "Hedging operational risk only.",
-                        "Neither hedging operational risk nor hedging financial position risk.",
-                        "Hedging financial position risk only."
+                        "Both I and II.",
+                        "I only.",
+                        "Neither I nor II.",
+                        "II only."
                     ],
                     correctAnswer: 1,
                     explanation: "Hedging operational risk covers a firm's activities in production (costs) and sales (revenue), which is essentially the income statement. Financial position risk pertains to a firm's balance sheet.",
                     module: "Book 1, Module 2.2, LO 2.d"
-                }
-            ],
-            "B1": [
+                },
                 {
-                    id: 1,
-                    text: "Let A and B be two mutually exclusive events with P(A) = 0.40 and P(B) = 0.20. Therefore:",
+                    id: 2,
+                    text: "Abe Osbourne is a risk analyst who is evaluating the advantages and disadvantages of hedging risk exposures. Which of the following statements does not reflect an advantage of hedging?",
                     options: [
-                        "P(A and B) = 0.08.",
-                        "P(B | A) = 0.20.",
-                        "P(A and B) = 0.",
-                        "P(A or B) = 0.52."
+                        "Hedging may result in operational improvements within a firm.",
+                        "Hedging will increase a firm's long-term earnings and cash flows.",
+                        "Hedging may allow management to control its financial performance to meet the requirements of the board of directors.",
+                        "Hedging through the use of derivatives instruments such as swaps and options may be cheaper than purchasing an insurance policy."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "There is the belief by many market participants that hedging is a zero-sum game that has no long-term increase on a firm's earnings or cash flows (because earnings/cash flows are simply moved between periods).",
+                    module: "Book 1, Module 2.1, LO 2.c"
+                },
+                {
+                    id: 3,
+                    text: "Management at Bank ABC is attempting to determine which types of instruments to use for risk management. When comparing exchange-traded instruments to over-the-counter (OTC) instruments, which characteristic should the bank associate with exchange-traded instruments? Exchange-traded instruments:",
+                    options: [
+                        "can be customized to suit the firm's risk management needs.",
+                        "contain credit risk by either of the counterparties in the transaction (e.g., default risk).",
+                        "cover only certain underlying assets and are standardized.",
+                        "are privately traded between a bank and a firm."
                     ],
                     correctAnswer: 2,
-                    explanation: "If the two events are mutually exclusive, the probability of both ocurring is zero.",
-                    module: "Book 2, Module 12.1, LO 12.b"
+                    explanation: "Exchange-traded instruments cover only certain underlying assets and are quite standardized (e.g., maturities and strike prices) in order to promote liquidity in the marketplace. OTC instruments are privately traded between a bank and a firm and thus can be customized to suit the firm's risk management needs. In addition, there is credit risk by either of the counterparties (e.g., default risk) that would generally not exist with exchange-traded instruments.",
+                    module: "Book 1, Module 2.2, LO 2.e"
+                },
+                {
+                    id: 4,
+                    text: "Taylor Lawson is giving a presentation on the differences between static and dynamic hedging strategies. Which of the following statements is correct regarding these two hedging strategies?",
+                    options: [
+                        "A static hedging strategy is a complex process in which the risky investment position is initially determined and an appropriate hedging vehicle is used to",
+                        "Significantly more time and monitoring efforts are required with a dynamic hedging strategy compared to a static hedging strategy.",
+                        "A dynamic hedging strategy is a more simple process than a static hedging strategy.",
+                        "A static hedging strategy recognizes that the attributes of the underlying risky position may change with time."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "A static hedging strategy is a simple process. In contrast, a dynamic hedging strategy is a more complex process that recognizes that the attributes of the underlying risky position may change with time. Significantly more time and monitoring efforts are required with a dynamic hedging strategy.",
+                    module: "Book 1, Module 2.2, LO 2.d"
+                },
+                {
+                    id: 5,
+                    text: "The board of directors should help a company determine whether to hedge specific risk factors. Regarding the role of the board, which of the following statements is incorrect?",
+                    options: [
+                        "The board should clarify its objectives in terms of whether it is accounting or economic profits that are to be hedged.",
+                        "The board should ignore time horizon when determining its risk management goals for management to achieve.",
+                        "The board must ensure that its goals are stated in a clear and actionable manner.",
+                        "The board needs to help set and communicate the firm's risk appetite in a quantitative and/or qualitative manner."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The board must be definitive in the time horizon when determining its risk management goals for management to achieve. For example, the use of a futures contract to hedge future sales receipts will result in a mismatch of profits for accounting purposes.",
+                    module: "Book 1, Module 2.1, LO 2.b"
+                }
+            ],
+            "A3": [
+                {
+                    id: 1,
+                    text: "When adhering to best practices in corporate governance, the board of directors should most likely: I. watch out for the interests of the debtholders. II. maintain its independence from management.",
+                    options: [
+                        "I only.",
+                        "II only.",
+                        "Both I and II.",
+                        "Neither I nor II."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The board would watch out for the interests of shareholders as well as other stakeholders, such as debtholders, by considering if any of management's decisions contain extreme downside risk. The board should maintain its independence from management. A key measure involved would be that the chief executive officer (CEO) would not also be the chairman of the board because there is already an inherent conflict with the CEO being on both the management team and the board of directors.",
+                    module: "Book 1, Module 3.1, LO 3.b"
+                },
+                {
+                    id: 2,
+                    text: "Regarding the relationship between a firm's risk appetite and its business strategy, which of the following statements is true?",
+                    options: [
+                        "Business planning activities that exceed risk appetite should be maintained.",
+                        "A firm's risk appetite reflects its ability to minimize risk.",
+                        "Consideration must be given to the downside risks of only risky business strategies.",
+                        "Business strategy planning meetings require input from the risk management team."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "A firm's risk appetite reflects its tolerance (especially willingness) to accept risk. There must be a logical relationship between the firm's risk appetite and its business strategy. As a result, business strategy planning meetings require input from the risk management team right from the outset to ensure the consistency between risk appetite and business strategy. For example, planning activities are often focused on maximizing the firm's profit but some planned activities may need to be eliminated or modified because they exceed the stated risk appetite. Consideration must also be given to the downside risks of any business strategy.",
+                    module: "Book 1, Module 3.2, LO 3.d"
+                },
+                {
+                    id: 3,
+                    text: "Which of the following actions correctly reflect a specific duty of the risk advisory director? The risk advisory director should review and analyze:",
+                    options: [
+                        "the firm's financial statements, but not the firm's disclosures.",
+                        "the firm's risk appetite and its impact on business strategy.",
+                        "any audit reports from internal audits, but not from external audits.",
+                        "risk management practices of competitors, but not risk management practices of the industry."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The role of the board of directors in governance would include the review and analysis of: The firm's risk management policies; The firm's periodic risk management reports; The firm's appetite and its impact on business strategy; The firm's internal controls; The firm's financial statements and disclosures; The firm's related parties and related party transactions; Any audit reports from internal or external audits; Corporate governance best practices for the industry; Risk management practices of competitors and the industry.",
+                    module: "Book 1, Module 3.2, LO 3.c"
+                },
+                {
+                    id: 4,
+                    text: "Stella Webster, FRM, is assessing the role and responsibilities of her firm's audit committee. Which of the following statements is incorrect regarding the audit committee? The audit committee (as part of the board):",
+                    options: [
+                        "monitors the underlying systems in place regarding financial reporting, regulatory compliance, internal controls, and risk management.",
+                        "discusses and approves the remuneration of key management personnel.",
+                        "has traditionally been responsible for the accuracy of the firm's financial statements and its regulatory reporting requirements.",
+                        "must ensure that the firm has taken all steps to avoid the risk that the financial statements are materially misstated as a result of undiscovered errors and/or fraud."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Discussing and approving the remuneration of key management personnel is the role of the compensation committee, not the audit committee.",
+                    module: "Book 1, Module 3.2, LO 3.f"
+                },
+                {
+                    id: 5,
+                    text: "Regarding the interdependence of risk management related functional units within a firm, which of the following list of activities are most likely associated with senior management?",
+                    options: [
+                        "Books and settles trades, reconciles front- and back-office positions, and prepares and decomposes the daily income statement.",
+                        "Approves business plans and targets, sets risk tolerance, and ensures performance.",
+                        "Develops valuation and finance policy, ensures integrity of the income statement, and manages business planning process.",
+                        "Establishes and manages risk exposure, ensures timely, accurate, and complete deal capture, and signs off on the official income statement."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The senior management functional unit approves business plans and targets, sets risk tolerance, establishes policy, and ensures performance.",
+                    module: "Book 1, Module 3.2, LO 3.e"
+                }
+            ],
+            "A4": [
+                {
+                    id: 1,
+                    text: "Which of the following actions is an advantage to investing in collateralized debt obligations (CDOs)?",
+                    options: [
+                        "Direct risk transfer.",
+                        "Introduce portfolio complexity.",
+                        "Concentrate risk.",
+                        "Encourage risk taking."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Advantages of CDOs include: increased profit potential, direct risk transfer, and loan access. Through the securitization process, banks will effectively transfer credit risk to investors. Disadvantages of CDOs include: encourages increased risk taking, risk concentration potential, and high complexity.",
+                    module: "Book 1, Module 4.1, LO 4.a"
+                },
+                {
+                    id: 2,
+                    text: "Which of the following activities least likely contributed to the financial crisis of 2007–2009?",
+                    options: [
+                        "Having too few liquidity providers as counterparties for credit derivatives",
+                        "Using credit default swap (CDS) contracts for speculation rather than risk mitigation",
+                        "The frequent use of adjustable-rate loans and subprime loans in collateralized debt obligations (CDOs)",
+                        "The existence of credit derivatives"
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The existence of credit derivatives did not cause the financial crisis of 2007–2009, but the misuse of these products certainly did. Investors used CDS contracts for speculation rather than risk mitigation. Collateralized debt obligations also held a very complex mixture of mortgages that included both subprime loans and adjustable-rate loans as well.",
+                    module: "Book 1, Module 4.1, LO 4.c"
+                },
+                {
+                    id: 3,
+                    text: "The originate-to-distribute (OTD) model involves banks sourcing loans with the explicit intention to securitize them and sell the structured products to investors. Which of the following statements is a disadvantage of the OTD model?",
+                    options: [
+                        "With the OTD model, investors had new access to a wider selection of credit products.",
+                        "Credit risk and interest rate risk can be distributed across various market participants when using the OTD model.",
+                        "The OTD model encourages a focus on short-term profitability instead of long-term stability or sustainability.",
+                        "Short-term earnings volatility can be lowered and capital can be optimized using the OTD model."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Disadvantages of the OTD model include: moral hazard, misaligned incentives, and opaqueness. The OTD model encourages a focus on short-term profitability instead of long-term stability or sustainability, which is a misaligned incentive.",
+                    module: "Book 1, Module 4.1, LO 4.d"
+                },
+                {
+                    id: 4,
+                    text: "From a risk perspective, which of the following asset-backed security (ABS) tranches will most likely absorb the first losses in the ABS asset pool?",
+                    options: [
+                        "Super-senior tranche.",
+                        "Equity tranche.",
+                        "Senior tranche.",
+                        "Mezzanine tranche."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "From a risk perspective, the equity tranche has the highest risk and will absorb the first losses in the ABS asset pool.",
+                    module: "Book 1, Module 4.1, LO 4.a"
+                },
+                {
+                    id: 5,
+                    text: "When the value of the collateral is negatively impacted by the same factors that cause a firm to potentially default on a loan, it is known as",
+                    options: [
+                        "exposure netting.",
+                        "wrong-way risk.",
+                        "syndication.",
+                        "marking-to-market."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Wrong-way risk occurs when the value of the collateral is negatively impacted by the same factors that cause the firm to potentially default on a loan.",
+                    module: "Book 1, Module 4.1, LO 4.b"
+                }
+            ],
+            "A5": [
+                {
+                    id: 1,
+                    text: "For a given portfolio, the expected return is 12% with a standard deviation of 22%. The beta of the portfolio is 1.1. The expected return of the market is 10% with a standard deviation of 20%. The risk-free rate is 4%. The Sharpe measure of the portfolio is:",
+                    options: [
+                        "20.00.",
+                        "0.36.",
+                        "7.27.",
+                        "0.10."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The Sharpe Measure is the risk premium divided by the standard deviation, σ: Sharpe measure of portfolio 'p' = [E(R_P) - R_F] / σ_P = [12 - 4] / 22 = 0.363",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 2,
+                    text: "In the graph of the security market line (SML) below (not drawn to scale): The letters X, Y, and Z represent risky asset portfolios. The SML crosses the y-axis at 5%. The market premium is 7.5%. Portfolio Y and Z have the same expected return (holding period return). Using the graph and the list of assumptions, determine which of the following statements is most accurate.",
+                    options: [
+                        "The required return on Portfolio X is 10.25%.",
+                        "The expected return on Portfolio Y is 15%.",
+                        "The expected return on Portfolio Z is greater than the required return.",
+                        "Portfolio X is overvalued."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Remember that the SML graph plots systematic, or beta, risk versus expected return. Thus, the numbers on the x-axis represent beta. Using the Capital Asset Pricing Model (CAPM) equation, the required return for portfolio X = R_f + (ER_M - R_f) × Beta = 5.0% + 0.7(7.5%) = 10.25%. Portfolio Y lies below the SML and is thus overvalued and the expected return must be less than the required return. Using the CAPM, required return for portfolio Y = R_f + (ER_M - R_f) × Beta = 5.0% + 1.0(7.5%) = 12.50%. Since the expected return on portfolio Y must be less than the required return, the expected return must be less than 12.50% and cannot be 15%. Since Portfolio Z is on the SML, it is fairly valued and its expected return equals its required return. Since Portfolio X lies above the SML, it is undervalued.",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 3,
+                    text: "Which of the following statements about risk is false?",
+                    options: [
+                        "Total risk = systematic risk – unsystematic risk.",
+                        "The market portfolio consists only of systematic risk.",
+                        "Systematic risk is undiversifiable risk.",
+                        "Unsystematic risk is diversifiable risk."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Total risk = systematic risk + unsystematic risk",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 4,
+                    text: "The table represents risk-adjusted returns across all fund categories. Which of the following represents the best risk-adjusted return? Portfolio D has Sharpe Measure 0.75, Treynor Measure 0.10, Jensen Measure -0.02",
+                    options: [
+                        "Portfolio D.",
+                        "Portfolio B.",
+                        "Portfolio A.",
+                        "Portfolio C."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "The Sharpe measure should be used since all funds are considered. Portfolio D should be selected because it has the highest Sharpe measure.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 5,
+                    text: "Which of the following statements about the security market line (SML) is least accurate?",
+                    options: [
+                        "The market portfolio consists of all risky assets.",
+                        "The risk-free rate defines where the SML intersects the vertical axis.",
+                        "Securities that plot above the SML are undervalued.",
+                        "Securities that plot on the SML have no intrinsic value to the investor."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "Securities that fall on the SML are properly priced. They have value to an investor in that they still earn a return.",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 6,
+                    text: "An analyst has gathered the following information about the performance of an equity fund and the S&P 500 index over the same time period. Equity Fund: Return -12%, Standard Deviation 15%, Beta 1.18; S&P 500: Return -16%, Standard Deviation 19%, Beta 1.00. Risk-free rate is 6.00%. The difference between the Treynor measure for the equity fund and the Treynor measure for the S&P 500 is:",
+                    options: [
+                        "0.21.",
+                        "0.07.",
+                        "0.17.",
+                        "0.15."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The equity fund: (-0.12 - 0.06) / 1.18 = -0.15; The S&P 500: (-0.16 - 0.06) / 1.00 = -0.22; The equity fund is (-0.15 - (-0.22)) = 0.07 higher",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 7,
+                    text: "The slope of the capital market line (CML) is a measure of the level of:",
+                    options: [
+                        "risk over the level of excess return.",
+                        "excess return per unit of risk.",
+                        "expected return over the level of inflation.",
+                        "inflation over the level of expected return."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The slope of the CML indicates the excess return (expected return less the risk-free rate) per unit of risk.",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 8,
+                    text: "In the Sortino ratio, the excess return is divided by the:",
+                    options: [
+                        "downside deviation.",
+                        "standard deviation.",
+                        "Value at risk.",
+                        "maximum drawdown."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "The Sortino ratio examines the downside risk of returns. It is calculated as the portfolio return minus the minimum acceptable return divided by downside deviation. The other responses refer to other measures of risk-adjusted performance.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 9,
+                    text: "An analyst has developed the following data for two companies, PNS Manufacturing (PNS) and InCharge Travel (InCharge). PNS has an expected return of 15 percent and a standard deviation of 18 percent. InCharge has an expected return of 11 percent and a standard deviation of 17 percent. PNS's correlation with the market is 75 percent, while InCharge's correlation with the market is 85 percent. If the market standard deviation is 22 percent, which of the following are the betas for PNS and InCharge?",
+                    options: [
+                        "Beta of PNS: 0.61, Beta of InCharge: 0.66",
+                        "Beta of PNS: 0.92, Beta of InCharge: 1.10",
+                        "Beta of PNS: 1.10, Beta of InCharge: 0.92",
+                        "Beta of PNS: 0.66, Beta of InCharge: 0.61"
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Beta1 = (s1 / sM) × r1,M; Betapns = (0.18 / 0.22) × 0.75 = 0.6136; BetaInCharge = (0.17 / 0.22) × 0.85 = 0.6568",
+                    module: "Book 1, Module 5.2, LO 5.f"
+                },
+                {
+                    id: 10,
+                    text: "Determine the Sharpe measure, Treynor measure, and Jensen's alpha for the actively managed portfolio with Return 50%, Standard deviation 18%, Beta 1.1. S&P 500 has Return 20%, Standard deviation 15%, Beta 1.0. Risk-free rate = 6%.",
+                    options: [
+                        "Sharpe measure = 1.04; Treynor measure = 0.14; Alpha = 0.04.",
+                        "Sharpe measure = 2.44; Treynor measure = 0.40; Alpha = 0.29.",
+                        "Sharpe measure = 1.06; Treynor measure = 0.12; Alpha = 0.02.",
+                        "Sharpe measure = 1.05; Treynor measure = 0.17; Alpha = 0.04."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Sharpe measure for active portfolio = (0.50 - 0.06) / 0.18 = 2.44; Treynor measure for active portfolio = (0.50 - 0.06) / 1.1 = 0.40; Alpha for active portfolio = 0.50 - [0.06 + (0.20 - 0.06) × 1.1)] = 0.29",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 11,
+                    text: "Based on the results from determining the Sharpe measure, Treynor measure, and Jensen's alpha for the actively managed portfolio, does the portfolio manager outperform or underperform the S&P 500 index?",
+                    options: [
+                        "Sharpe measure → underperform; Treynor measure → outperform; Alpha → outperform",
+                        "Sharpe measure → outperform; Treynor measure → underperform; Alpha → underperform.",
+                        "Sharpe measure → underperform; Treynor measure → underperform; Alpha → underperform.",
+                        "Sharpe measure → outperform; Treynor measure → outperform; Alpha → outperform."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "Sharpe measure for S&P portfolio = (0.20 - 0.06) / 0.15 = 0.93; Treynor Measure for S&P portfolio = (0.20 - 0.06) / 1.0 = 0.14; Alpha for S&P portfolio = 0. Hence, the portfolio manager outperforms based on all the three performance evaluation methods.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 12,
+                    text: "The capital market line (CML) shows that under certain assumptions, when a portfolio on the Markowitz efficient frontier is combined with an investment in a risk-free asset:",
+                    options: [
+                        "the maximum attainable expected return results from a 100% allocation to the frontier portfolio and a 0% allocation to the risk-free asset.",
+                        "a 100% allocation to the risk-free asset results in a portfolio with an expected return and standard deviation of zero.",
+                        "all portfolios on the Markowitz efficient frontier are dominated in terms of risk and return by a portfolio on the CML.",
+                        "there is a positive linear relationship between portfolio risk and expected return."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "Under the assumptions of the capital market theory, the CML represents the positive linear relationship between portfolio risk (standard deviation of returns) and expected return.",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 13,
+                    text: "Consider the following graph of the risk-free asset R_f and the efficient frontier. The letters K, W, X, Y, and Z represent risky portfolios. Portfolio M is the market portfolio. The lines R_fX and R_fY represent the combination of the risk-free asset and the risky portfolio. Which of the following statements about the above graph is least accurate?",
+                    options: [
+                        "Investors on the capital market line to the right of M are leveraged and hold more than 100% of portfolio M.",
+                        "Point S represents the standard deviation of returns on the market portfolio.",
+                        "Portfolios W and Z are perfectly positively correlated with each other.",
+                        "Portfolio K is possible, but not the most efficient because it does not fall on the efficient frontier and is overvalued."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "By definition, all stocks and portfolios other than M, the market portfolio, fall on or below the CML. Thus, K is not a possible portfolio on this graph.",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 14,
+                    text: "The mean monthly return on U.S. Treasury bills (T-bills) is 0.42%. The mean monthly return for an index of small stocks is 4.56%, with a standard deviation of 3.56%. What is the Sharpe measure for the index of small stocks?",
+                    options: [
+                        "3.48.",
+                        "1.16.",
+                        "16.56.",
+                        "10.60."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The Sharpe ratio measures excess return per unit of risk. (4.56 - 0.42) / 3.56 = 1.16",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 15,
+                    text: "The beta of stock D is ~0.5. If the expected return of Stock D is 8%, and the risk-free rate of return is 5%, what is the expected return of the market?",
+                    options: [
+                        "~4.0%.",
+                        "+3.0%.",
+                        "~1.0%.",
+                        "+3.5%."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "RRStock = Rf + (RMarket - Rf) × BetaStock; RMarket = [RRStock - Rf - (BetaStock × Rf)] / BetaStock = [8 - 5 - (-0.5 × 5)] / -0.5 = 0.5 / -0.5 = -1%",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 16,
+                    text: "The modern portfolio theory assumption that returns are normally distributed means that investors:",
+                    options: [
+                        "only consider the mean and standard deviation of the returns.",
+                        "have the same horizon.",
+                        "are risk averse.",
+                        "do not need to consider transactions costs."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "If a distribution is normally distributed, then it is completely described by the mean and standard deviation.",
+                    module: "Book 1, Module 5.1, LO 5.a"
+                },
+                {
+                    id: 17,
+                    text: "The capital market line results from combining the efficient frontier with a risk-free asset. Given the availability of risky assets and a risk-free asset, the best combinations of risk and return are represented by:",
+                    options: [
+                        "combinations of the market portfolio and risk-free borrowing or lending.",
+                        "combinations of the market portfolio and minimum variance portfolio of risky assets.",
+                        "the efficient frontier of risky assets.",
+                        "combinations of the minimum variance portfolio of risky assets and the risk-free asset."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "The best combinations of risk and return are represented by combinations of the market portfolio and risk-free borrowing or lending.",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 18,
+                    text: "The market portfolio in capital market line (CML) is determined by:",
+                    options: [
+                        "a straight line drawn to any efficient portfolio.",
+                        "the intersection of the efficient frontier and the investor's highest utility curve.",
+                        "a line tangent to the efficient frontier, drawn from any point on the expected return axis.",
+                        "a line tangent to the efficient frontier, drawn from the risk-free rate of return."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The CML is a straight line drawn from the risk-free rate of return (on the Y axis) through the market portfolio.",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 19,
+                    text: "Luis Green is an investor who uses the security market line to determine whether securities are properly valued. He is evaluating the stocks of two companies, Mia Shoes and Video Systems. The stock of Mia Shoes is currently trading at $15 per share, and the stock of Video Systems is currently trading at $18 per share. Green expects the prices of both stocks to increase by $2 in a year. Neither company pays dividends. Mia Shoes has a beta of 0.9 and Video Systems has a beta of (-0.30). If the market return is 15 percent and the risk-free rate is 8 percent, which trading strategy will Green employ?",
+                    options: [
+                        "Mia Shoes: Sell, Video Systems: Buy",
+                        "Mia Shoes: Buy, Video Systems: Buy",
+                        "Mia Shoes: Buy, Video Systems: Sell",
+                        "Mia Shoes: Sell, Video Systems: Sell"
+                    ],
+                    correctAnswer: 0,
+                    explanation: "The required return for Mia Shoes is 0.08 + 0.9 × (0.15 - 0.08) = 14.3%. The forecast return is $2 / $15 = 13.3%. The stock is overvalued. The required return for Video Systems is 0.08 - 0.3 × (0.15 - 0.08) = 5.9%. The forecast return is $2 / $18 = 11.1%. The stock is undervalued.",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 20,
+                    text: "Jim Sheehan manages a diversified portfolio containing forty stocks. The portfolio beta is 1.05. Jim is considering adding the stock of ABC Inc. to the portfolio, and would fund the purchase with cash already in the portfolio. ABC Inc. has a beta of 1.20, and is currently not part of the portfolio. Which statement about the resulting portfolio is true?",
+                    options: [
+                        "Systematic risk would increase, but the unsystematic risk would be unchanged.",
+                        "Both systematic risk and unsystematic risk would both increase.",
+                        "Both systematic risk and unsystematic risk would be unchanged.",
+                        "Systematic risk would decrease, but the unsystematic risk would be unchanged."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Since the portfolio is well diversified, the assumed level of unsystematic risk is zero. The addition of ABC Inc will increase the portfolio beta, and, hence, the level of systematic risk.",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 21,
+                    text: "Jenny Rouse has been a portfolio manager for Theta Advisors for the last five years. The performance of her portfolio has had few returns below its benchmarks since its inception. Which of the following risk measures best measures Rouse's performance?",
+                    options: [
+                        "Range.",
+                        "Sharpe ratio.",
+                        "Sortino ratio.",
+                        "Standard Deviation."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The Sortino ratio examines the downside risk of returns. It is calculated as the portfolio return minus the minimum acceptable return divided by downside deviation. Since Rouse's portfolio has had consistently higher returns, she should not be penalized for any variability on the upside. The range (the difference between the highest and lowest values), standard deviation, and Sharpe ratio (which uses the standard deviation in the denominator) examine all returns, whether they correspond to positive or negative alphas. The use of these measures would result in risk measurements that are unfairly high in Rouse's case.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 22,
+                    text: "A portfolio has a return of 14.2% and a Sharpe's measure of 3.52. If the risk-free rate is 4.7%, what is the standard deviation of returns?",
+                    options: [
+                        "3.9%.",
+                        "2.7%.",
+                        "3.1%.",
+                        "2.6%."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Standard Deviation of Returns = (14.2% – 4.7%) / 3.52 = 2.6988.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 23,
+                    text: "The Sortino ratio is most similar to the:",
+                    options: [
+                        "Sharpe ratio.",
+                        "Treynor ratio.",
+                        "information ratio.",
+                        "relative tracking error ratio."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "The Sortino ratio is similar to the Sharpe ratio except for two changes. We replace the risk-free rate with a minimum acceptable return, denoted R_min, and we replace the standard deviation with a type of semivariance.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 24,
+                    text: "Johnson Inc. manages a growth portfolio of equity securities that has had a mean monthly return of 1.4% and a standard deviation of returns of 10.8%. Smith Inc. manages a blended equity and fixed income portfolio that has had a mean monthly return of 1.2% and a standard deviation of returns of 6.8%. The mean monthly return on Treasury bills has been 0.3%. Based on the Sharpe ratio, the:",
+                    options: [
+                        "shows that the Johnson and Smith portfolios have exhibited the same risk-adjusted performance.",
+                        "Johnson portfolio has greater excess return per unit of risk than the Smith portfolio.",
+                        "performance of the Johnson portfolio is preferable to the performance of the Smith portfolio.",
+                        "performance of the Smith portfolio is preferable to the performance of the Johnson portfolio."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The Sharpe ratio for the Johnson portfolio is (1.4 – 0.3) / 10.8 = 0.1019. The Sharpe ratio for the Smith portfolio is (1.2 – 0.3) / 6.8 = 0.1324. The Smith portfolio has the higher Sharpe ratio, or greater excess return per unit of risk.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 25,
+                    text: "Which Sharpe ratio indicates that Fund One earned a return on investment that is greater than the risk taken by the fund?",
+                    options: [
+                        "0.5.",
+                        "1.5.",
+                        "0.",
+                        "1.0."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "A Sharpe ratio of 1 indicates the risk and return of the investment are proportional, while a lower ratio indicates greater risk was taken and a higher ratio indicates less risk was taken to generate the return on investment.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 26,
+                    text: "Over the previous year, the average and variance of a portfolio's returns was 0.18 and 0.09. The risk-free rate over the period was 0.03. The Sharpe ratio for the portfolio for the previous year is:",
+                    options: [
+                        "3.0.",
+                        "1.5.",
+                        "0.5.",
+                        "0.6."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The Sharpe ratio is the difference between the average of the portfolio's return minus the risk-free rate, 0.15 = 0.18 - 0.03, divided by the standard deviation, which is the square root of the variance: 0.3 = 0.09^0.5. The Sharpe ratio is 0.5 = 0.15 / 0.3.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 27,
+                    text: "Which of the following measures used to evaluate the performance of a portfolio manager is (are) not subject to the assumptions of the capital asset pricing model (CAPM)?",
+                    options: [
+                        "Sharpe measure.",
+                        "Jensen's alpha and the Treynor measure.",
+                        "Jensen's alpha.",
+                        "Treynor measure."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Both the Treynor measure and the Jensen's alpha assume that the CAPM is the underlying risk-adjustment model. The Sharpe measure on the other hand does not make this assumption. It uses total risk of a portfolio, unlike the Treynor measure and Jensen's alpha, which use the systematic (undiversifiable) risk as measured by beta to compute the risk-adjusted return of a portfolio.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 28,
+                    text: "The Sortino ratio is a measure of a portfolio's return above:",
+                    options: [
+                        "a minimal acceptable return divided by downside deviation.",
+                        "the market return divided by beta.",
+                        "zero divided by the standard deviation.",
+                        "the market return divided by the standard deviation."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "The definition of the Sortino ratio is a predefined minimal acceptable return divided by downside deviation.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 29,
+                    text: "According to the security market line (SML), which of the three securities is correctly priced? Alpha: Price Today 25, Forecasted Price 31, Dividend 2, Beta 1.6; Omega: Price Today 105, Forecasted Price 110, Dividend 1, Beta 1.2; Lambda: Price Today 10, Forecasted Price 10.80, Dividend 0, Beta 0.5. The expected return on the market is 12% and the risk-free rate is 4%.",
+                    options: [
+                        "None of the securities are correctly priced.",
+                        "Lambda.",
+                        "Omega.",
+                        "Alpha."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "For Alpha: ER = (31 – 25 + 2) / 25 = 32%, RR = 4 + 1.6 × (12 – 4) = 16.8%. Stock is underpriced. For Omega: ER = (110 – 105 + 1) / 105 = 5.7%, RR = 4 + 1.2 × (12 – 4) = 13.6%. Stock is overpriced. For Lambda, ER = (10.8 – 10 + 0) / 10 = 8%, RR = 4 + 0.5 × (12 – 4) = 8%. Stock is correctly priced.",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 30,
+                    text: "Which of the three securities identified by Williams would plot on the capital market line (CML)?",
+                    options: [
+                        "Omega.",
+                        "None of the securities would plot on the CML.",
+                        "Lambda.",
+                        "Alpha."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "By definition, all stocks and portfolios (other than the market portfolio) fall below the CML. (Only the market portfolio is efficient).",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 31,
+                    text: "Consider the following graph of the Security Market Line (SML). The letters X, Y, and Z represent risky asset portfolios. The SML crosses the y-axis at the point 0.07. The expected market return equals 13.0%. Note: The graph is not drawn to scale. Using the graph above and the information provided, which of the following statements is most accurate?",
+                    options: [
+                        "Portfolio X's required return is greater than the market expected return.",
+                        "Portfolio Y is undervalued.",
+                        "The expected return (or holding period return) for Portfolio Z equals 14.8%.",
+                        "The correct label for the x-axis is total risk."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "At first, it appears that we are not given the information needed to calculate the holding period, or expected return. However, we are given the information required to calculate the required return (CAPM) and since Portfolio Z is on the SML, we know that the required return (RR) equals the expected return (ER). So, ER = RR = R_f + (ER_M - R_f) × Beta = 7.0% + (13.0% - 7.0%) × 1.3 = 14.8%.",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 32,
+                    text: "Which of the following statements about asset pricing models is most accurate?",
+                    options: [
+                        "According to the capital asset pricing model (CAPM), the expected rate of return of a portfolio with a beta of 1.0 is the market expected return.",
+                        "Adding the risk-free asset to a portfolio will reduce return and total risk.",
+                        "Assuming assets are not perfectly positively correlated, the systematic risk of a portfolio decreases as more assets are added.",
+                        "It is difficult for the individual investor to achieve the benefits from diversification because significantly reducing risk requires the purchase of"
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Diversification reduces unsystematic, or unique risk. With the risk-free asset and a portfolio of risky assets, the equation for the expected standard deviation is linear. A combination of the risk free asset and a portfolio always gives more return for a given level of risk.",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 33,
+                    text: "Beta is least accurately described as:",
+                    options: [
+                        "a standardized measure of the total risk of a security.",
+                        "the covariance of a security's returns with the market return, divided by the variance of market returns.",
+                        "the factor by which the market risk premium is multiplied in the Capital Asset Pricing Model.",
+                        "a measure of the sensitivity of a security's return to the market return."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Beta is a standardized measure of the systematic risk of a security. β = Cov_{r,mkt} / σ^2_{mkt}. Beta is multiplied by the market risk premium in the CAPM: E(R_i) = RFR + β[E(R_{mkt}) - RFR].",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 34,
+                    text: "Modern portfolio theory is least likely to assume that:",
+                    options: [
+                        "it is possible to buy or sell fractional shares of an investment.",
+                        "investors can lend any amount of money at the risk-free rate.",
+                        "all investors desire to be the same location on the efficient frontier.",
+                        "all investors have the same one-period time horizon."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Modern portfolio theory assumes that all investors want to be on the efficient frontier, but the exact location on the efficient frontier for each investor will depend on that investor's risk-return utility function.",
+                    module: "Book 1, Module 5.1, LO 5.a"
+                },
+                {
+                    id: 35,
+                    text: "A portfolio manager wants to purchase stocks with betas that are greater than the market beta. He has asked his analyst to evaluate two stocks, Stock X and Stock Y, and determine if their betas are greater than the market beta. The following information about Stocks X and Y is available to the analyst: Stock X: Standard deviation of returns 0.15, Covariance between the return on the market and Stock X 0.014; Stock Y: Standard deviation of returns 0.16, Covariance between the return on the market and Stock Y 0.021. The return on the market is 0.12 and the standard deviation of returns on the market is 0.13. Which of the stocks should the analyst recommend?",
+                    options: [
+                        "Recommend X: No, Recommend Y: No",
+                        "Recommend X: Yes, Recommend Y: Yes",
+                        "Recommend X: Yes, Recommend Y: No",
+                        "Recommend X: No, Recommend Y: Yes"
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The analyst should recommend the stock if the stock's beta is greater than 1. Stock X's beta = 0.014 / (0.13)^2 = 0.82. Stock Y's beta = 0.021 / (0.13)^2 = 1.24.",
+                    module: "Book 1, Module 5.2, LO 5.f"
+                },
+                {
+                    id: 36,
+                    text: "An analyst has generated the following information about risk/return performance using the Sharpe ratio and the Treynor measure: Equity Fund: Sharpe ratio 0.47, Treynor measure 0.31; S&P 500: Sharpe ratio 0.42, Treynor measure 0.34. Which of the following statements about the relative risk/return performance of the funds is true? The:",
+                    options: [
+                        "Treynor measure shows the fund underperformed the S&P 500 on a total risk-adjusted basis.",
+                        "Sharpe ratio shows the equity fund outperformed the S&P 500 on a total risk-adjusted basis.",
+                        "Treynor measure shows the fund outperformed the S&P 500 on a systematic risk-adjusted basis.",
+                        "Sharpe ratio shows the equity fund underperformed the S&P 500 on a systematic risk-adjusted basis."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "With either the Sharpe or Treynor methodology, a higher number means a higher risk-adjusted return. Since the Sharpe ratio is 0.05 higher, it outperformed the S&P 500.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 37,
+                    text: "Portfolio A earned a return of 10.23% and had a standard deviation of returns of 6.22%. If the return over the same period on Treasury bills (T-bills) was 0.52% and the return to Treasury bonds (T-bonds) was 4.56%, what is the Sharpe ratio of the portfolio?",
+                    options: [
+                        "1.56.",
+                        "7.71.",
+                        "0.56.",
+                        "0.91."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Sharpe ratio = (R_p - R_f) / σ_p, where (R_p - R_f) is the difference between the portfolio return and the risk free rate, and σ_p is the standard deviation of portfolio returns. Thus, the Sharpe ratio is: (10.23 - 0.52) / 6.22 = 1.56.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 38,
+                    text: "Given a beta of 1.10 and a risk-free rate of 5 percent, what is the expected rate of return assuming a 10 percent market return?",
+                    options: [
+                        "21.5%.",
+                        "15.5%.",
+                        "5.5%.",
+                        "10.5%."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "k = 5 + 1.10 (10 – 5) = 5 + 1.10 (5) = 5 + 5.5 = 10.5",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 39,
+                    text: "An analyst has gathered the following information about the performance of an equity fund and the S&P 500 index over the same time period. Equity Fund: Return 13%, Standard Deviation 22%, Beta 1.21; S&P 500: Return 10.5%, Standard Deviation 20%, Beta 1.00. Risk-free rate is 5.25%. The Treynor measure for the equity fund is:",
+                    options: [
+                        "0.570.",
+                        "0.071.",
+                        "0.064.",
+                        "0.048."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "(0.13 - 0.0525) / 1.21 = 0.064",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 40,
+                    text: "The intercept and slope of the capital market line are:",
+                    options: [
+                        "R_M and [E(R_M) - R_P] / σ_M, respectively.",
+                        "R_F and [E(R_P) - R_F] / σ_M, respectively.",
+                        "R_M and [E(R_P) - R_F] / σ_P, respectively.",
+                        "R_F and [E(R_M) - R_F] / σ_M, respectively."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The CML is expressed by the following equation: E(R_P) = R_F + [E(R_M) - R_F]/σ_M × σ_P. The line begins at the vertical axis at R_F. With each increase in σ_P, the expected return increases by [E(R_M) - R_F] / σ_M.",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 41,
+                    text: "The market portfolio in the capital market line contains which types of investments?",
+                    options: [
+                        "All stocks and bonds in existence.",
+                        "All risky and risk-free assets in existence.",
+                        "All risky assets in existence.",
+                        "All stocks in existence."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The market portfolio contains all risky assets in existence. It does not contain any risk-free assets.",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 42,
+                    text: "Consider the expected returns and standard deviations for the following portfolios: Portfolio 1: Expected Return 10%, Standard Deviation 14%; Portfolio 2: Expected Return 12%, Standard Deviation 13%; Portfolio 3: Expected Return 11%, Standard Deviation 12%; Portfolio 4: Expected Return 14%, Standard Deviation 18%. Relative to the other portfolios, the portfolio that is not mean variance efficient is:",
+                    options: [
+                        "Portfolio 3.",
+                        "Portfolio 2.",
+                        "Portfolio 4.",
+                        "Portfolio 1."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "Portfolio 1 is not efficient because it has a lower expected return and higher risk than both Portfolios 2 and 3.",
+                    module: "Book 1, Module 5.1, LO 5.a"
+                },
+                {
+                    id: 43,
+                    text: "According to the capital asset pricing model, a negative risk premium:",
+                    options: [
+                        "would only occur if the covariance of a security's return with the return on the market is positive.",
+                        "is an impossibility.",
+                        "would only occur if the covariance of a security's return with the return on the market is zero.",
+                        "would only occur if the covariance of a security's return with the return on the market is negative."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "A negative risk premium would occur if the beta of the security was negative, which would occur if the covariance of a security's return with the return on the market is negative.",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 44,
+                    text: "A portfolio to the right of the market portfolio on the capital market line (CML) is created by:",
+                    options: [
+                        "holding both the risk-free asset and the market portfolio.",
+                        "holding more than 100% of the risky asset.",
+                        "fully diversifying.",
+                        "buying the risk-free asset."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Portfolios that lie to the right of the market portfolio on the capital market line are created by borrowing funds to own more than 100% of the market portfolio (M).",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 45,
+                    text: "Which of the following statements about systematic and unsystematic risk is least accurate?",
+                    options: [
+                        "As compared to a less-diversified portfolio, a diversified portfolio has lower unsystematic risk.",
+                        "As an investor increases the number of stocks in a portfolio, the systematic risk will remain constant.",
+                        "Total risk equals market risk plus firm-specific risk.",
+                        "The unsystematic risk for a specific firm is similar to the unsystematic risk for other firms in the same industry."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "This statement should read, 'The unsystematic risk for a specific firm is not similar to the unsystematic risk for other firms in the same industry.' Thus, other terms for this risk are firm-specific, or unique, risk.",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 46,
+                    text: "Of the Sharpe, Treynor, and Jensen's Alpha measures, when measuring the risk/return performance of actively managed portfolios, which is the most appropriate to use?",
+                    options: [
+                        "Sharpe ratio.",
+                        "Jensen's Alpha.",
+                        "All three measures are equally appropriate.",
+                        "Treynor measure."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Jensen's Alpha measures the value added of an active portfolio strategy.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 47,
+                    text: "The Treynor measure is correctly defined as a measure of a fund's:",
+                    options: [
+                        "excess earned compared to its systematic risk.",
+                        "return earned compared to its unsystematic risk.",
+                        "excess return earned compared to its total risk.",
+                        "return earned compared to its systematic risk."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "The Treynor measure is defined as a fund's excess return (fund's return minus the risk-free rate) divided by its systematic risk (beta).",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 48,
+                    text: "According to capital market theory, which of the following represents the risky portfolio that should be held by all investors who desire to hold risky assets?",
+                    options: [
+                        "The point of tangency between the capital market line (CML) and the efficient frontier.",
+                        "Any point on the efficient frontier and to the right of the point of tangency between the CML and the efficient frontier.",
+                        "Any point on the efficient frontier and to the left of the point of tangency between the CML and the efficient frontier.",
+                        "Any point on the efficient frontier and above the CML."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Capital market theory suggests that all investors should invest in the same portfolio of risky assets, and this portfolio is located at the point of tangency of the CML and the efficient frontier of risky assets.",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 49,
+                    text: "Portfolio A earned an annual return of 15% with a standard deviation of 28%. If the mean return on Treasury bills (T-bills) is 4%, the Sharpe ratio for the portfolio is:",
+                    options: [
+                        "0.54.",
+                        "1.87.",
+                        "2.54.",
+                        "0.39."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "(15 - 4) / 28 = 0.39",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 50,
+                    text: "For an investor to move further up the capital market line than the market portfolio, the investor must:",
+                    options: [
+                        "diversify the portfolio even more.",
+                        "borrow and invest in the market portfolio.",
+                        "continue to invest only in common stocks.",
+                        "reduce the portfolio's risk below that of the market."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Portfolios that lie to the right of the market portfolio on the capital market line ('up' the capital market line) are created by borrowing funds to own more than 100% of the market portfolio (M).",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 51,
+                    text: "What is the Sharpe ratio for the Trumark Fund? The Trumark Fund has an average annual return of 12 percent over the last five years, standard deviation of returns of 16.80 percent, and during the same time period, the average annual T-bill rate was 4.5 percent.",
+                    options: [
+                        "7.50.",
+                        "0.80.",
+                        "0.45.",
+                        "5.56."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Sharpe Ratio = (R_j - R_F) / σ_j = (12 - 4.50) / 16.80 = 0.45",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 52,
+                    text: "What is the Treynor measure for Trumark Fund? The Trumark Fund has an average annual return of 12 percent over the last five years, beta value of 1.35, and during the same time period, the average annual T-bill rate was 4.5 percent.",
+                    options: [
+                        "-0.04.",
+                        "0.80.",
+                        "0.06.",
+                        "0.45."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Treynor measure = (R_j - R_F) / β_j = (0.12 - 0.0450) / 1.35 = 0.0556",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 53,
+                    text: "Charlie Smith holds two portfolios, Portfolio X and Portfolio Y. They are both liquid, well-diversified portfolios with approximately equal market values. He expects Portfolio X to return 13% and Portfolio Y to return 14% over the upcoming year. Because of an unexpected need for cash, Smith is forced to sell at least one of the portfolios. He uses the security market line to determine whether his portfolios are undervalued or overvalued. Portfolio X's beta is 0.9 and Portfolio Y's beta is 1.1. The expected return on the market is 12% and the risk-free rate is 5%. Smith should sell:",
+                    options: [
+                        "portfolio Y only.",
+                        "both portfolios X and Y because they are both overvalued.",
+                        "either portfolio X or Y because they are both properly valued.",
+                        "portfolio X only."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Portfolio X's required return is 0.05 + 0.9 × (0.12 - 0.05) = 11.3%. It is expected to return 13%. The portfolio has an expected excess return of 1.7%. Portfolio Y's required return is 0.05 + 1.1 × (0.12 - 0.05) = 12.7%. It is expected to return 14%. The portfolio has an expected excess return of 1.3%. Since both portfolios are undervalued, the investor should sell the portfolio that offers less excess return. Sell Portfolio Y because its excess return is less than that of Portfolio X.",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 54,
+                    text: "A security's systematic risk is proportional to:",
+                    options: [
+                        "its diversifiable risk.",
+                        "the covariance of its return with the return on the market portfolio.",
+                        "the variance of its return.",
+                        "the standard deviation of its return."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The measure of systematic risk is beta, and beta is proportional to the covariance of a security's return with the return on the market portfolio.",
+                    module: "Book 1, Module 5.2, LO 5.f"
+                },
+                {
+                    id: 55,
+                    text: "Which of the following statements regarding the Sharpe ratio is most accurate? The Sharpe ratio measures:",
+                    options: [
+                        "peakedness of a return distribution.",
+                        "dispersion relative to the mean.",
+                        "total return per unit of risk.",
+                        "excess return per unit of risk."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The Sharpe ratio measures excess return per unit of risk. Remember that the numerator of the Sharpe ratio is (portfolio return – risk free rate), hence the importance of excess return.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 56,
+                    text: "A stock is expected to earn a return of 10%, which is 6% greater than the risk-free rate. If the expected return on the market is 12% and the beta of the stock is 0.75, the stock most likely:",
+                    options: [
+                        "will plot below the security market line.",
+                        "is properly valued.",
+                        "is overvalued.",
+                        "will plot above the security market line."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The risk-free rate is 10% – 6% = 4%. Using the CAPM, the required return on the stock is 4% + 0.75(12% – 4%) = 10%. Because the expected return on the stock is equal to its required return, the stock is properly valued according to the CAPM and will plot on the security market line.",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 57,
+                    text: "A portfolio of options had a return of 22% with a standard deviation of 20%. If the risk-free rate is 7.5%, what is the Sharpe ratio for the portfolio?",
+                    options: [
+                        "0.267.",
+                        "0.725.",
+                        "0.147.",
+                        "0.568."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Sharpe ratio = (22% - 7.50%) / 20% = 0.725.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 58,
+                    text: "The efficient market portfolio had a return of 12%. The risk-free rate was 6%. A portfolio has a beta of 1.2. If the portfolio return was 12%, which of the following is closest to the Treynor ratio for the portfolio?",
+                    options: [
+                        "0.",
+                        "0.20.",
+                        "1.",
+                        "0.05."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The Treynor ratio is the difference between the portfolio return and the risk-free rate divided by the beta: 0.05 = (0.12 - 0.06) / 1.2",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 59,
+                    text: "If the standard deviation of the market's returns is 5.8%, the standard deviation of a stock's returns is 8.2%, and the covariance of the market's returns with the stock's returns is 0.003, what is the beta of the stock?",
+                    options: [
+                        "1.07.",
+                        "1.12.",
+                        "0.05.",
+                        "0.89."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The formula for beta is: (Cov_stock,market) / (Var_market), or (0.003) / (0.058)^2 = 0.89.",
+                    module: "Book 1, Module 5.2, LO 5.f"
+                },
+                {
+                    id: 60,
+                    text: "The efficient market portfolio had a return of 14%. The risk-free rate was 5%. A portfolio has a beta of 0.8. If the portfolio return was 11%, then Jensen's alpha for the portfolio equals:",
+                    options: [
+                        "-1.200%.",
+                        "+3.000%.",
+                        "+8.000%.",
+                        "-0.375%."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Jensen's alpha = -1.20% = 11% - [5% + 0.8(14% - 5%)]",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 61,
+                    text: "An investor believes Stock M will rise from a current price of $20 per share to a price of $26 per share over the next year. The company is not expected to pay a dividend. The following information pertains: R_F = 8%, E_R_M = 16%, Beta = 1.7. Should the investor purchase the stock?",
+                    options: [
+                        "No, because it is undervalued.",
+                        "No, because it is overvalued.",
+                        "Yes, because it is undervalued.",
+                        "Yes, because it is overvalued."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "ER = (26 - 20) / 20 = 0.30 or 30%, RR = 8 + (16 - 8) × 1.7 = 21.6%. The stock is underpriced therefore purchase.",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 62,
+                    text: "Given the following data, what is the beta of stock A? Standard deviation of returns of Stock A is 10.04%, standard deviation of the market is 3.01%, covariance between the market and stock A is 0.002.",
+                    options: [
+                        "0.02.",
+                        "0.66.",
+                        "2.20.",
+                        "3.34."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "beta of stock A = covariance between stock and the market / variance of the market. Beta = 0.002 / 0.0301^2 = 2.2",
+                    module: "Book 1, Module 5.2, LO 5.f"
+                },
+                {
+                    id: 63,
+                    text: "Portfolios X and Y have had an equal average return over the most recent period. Compared to Portfolio Y, Portfolio X had higher total risk, but lower systematic risk. Given this information, which of the following statements is true? Compared to Portfolio Y:",
+                    options: [
+                        "Portfolio X has both a lower Sharpe ratio and a lower Treynor ratio.",
+                        "Portfolio X has a higher Sharpe ratio and a lower Treynor ratio.",
+                        "Portfolio X has both a higher Sharpe and a higher Treynor ratio.",
+                        "Portfolio X has a lower Sharpe ratio and a higher Treynor ratio."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The two portfolios will have the same numerator for both the Sharpe and the Treynor ratio. Thus, the denominator of the two measures will determine their relative sizes. The Sharpe measure has the standard deviation or total risk in the denominator, thus the value will be lower for X. Since X has lower systematic risk, its denominator in the Treynor measure will be lower and the overall measure will be higher for X.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 64,
+                    text: "Jensen's alpha for a portfolio measures the:",
+                    options: [
+                        "difference between the fund's Sharpe ratio and Treynor measure.",
+                        "fund's return in excess of the required rate of return given the systematic risk of the portfolio.",
+                        "fund's return in excess of the required rate of return given the unsystematic risk of the portfolio.",
+                        "difference between a fund's return and the market return."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Jensen's alpha measures the return above the required rate of return based on the fund's systematic risk. Said differently, Jensen's alpha is the amount of return earned by the fund over and above the return predicted for the fund based on the capital asset pricing model, given the fund's systematic risk.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 65,
+                    text: "The expected rate of return is twice the 12% expected rate of return from the market. What is the beta if the risk-free rate is 6%?",
+                    options: [
+                        "5.",
+                        "3.",
+                        "4.",
+                        "2."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "24 = 6 + β (12 - 6); 18 = 6β; β = 3",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 66,
+                    text: "Which of the following statements about a stock's beta is true? A beta greater than one is:",
+                    options: [
+                        "overvalued, while a beta less than one is undervalued.",
+                        "is riskier than the market, while a beta less than one is less risky than the market.",
+                        "undervalued, while a beta less than one is overvalued.",
+                        "risky, while a beta less than one is risk-free."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Beta is a measure of the volatility of a stock. The overall market's beta is one. A stock with higher systematic risk than the market will have a beta greater than one, while a stock that has a lower systematic risk will have a beta less than one.",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 67,
+                    text: "Which of the following is the vertical axis Intercept for the capital market line (CML)?",
+                    options: [
+                        "Risk-free rate.",
+                        "Efficient frontier.",
+                        "Expected return on the portfolio.",
+                        "Expected return on the market."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "The CML originates on the vertical axis from the point of the risk-free rate.",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 68,
+                    text: "Total Quality Inc. has a beta of 1.15. If the expected return on the market is 12 percent, and the risk-free rate is 6 percent, what is the expected return for Total Quality?",
+                    options: [
+                        "12.90%.",
+                        "11.69%.",
+                        "14.00%.",
+                        "10.15%."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Expected return = R_f + β(R_M - R_f) = 6 + 1.15 (12 - 6) = 12.90%",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 69,
+                    text: "A higher Sharpe ratio indicates:",
+                    options: [
+                        "greater diversification in the portfolio.",
+                        "lower volatility of returns.",
+                        "a higher excess return per unit of risk.",
+                        "a lower risk per unit of return."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The Sharpe ratio is excess return (return – R_f) per unit of risk (defined as the standard deviation of returns).",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 70,
+                    text: "Which of the following statements regarding the capital asset pricing model (CAPM) is least accurate?",
+                    options: [
+                        "It relies on the existence of a risk-free asset.",
+                        "Its accuracy depends on the accuracy of the beta estimates.",
+                        "It is when the security market line (SML) and capital market line (CML) converge.",
+                        "It assumes information is freely available."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The CML plots expected return versus standard deviation risk. The SML plots expected return versus beta risk. Therefore, they are lines that are plotted in different two-dimensional spaces and will not converge.",
+                    module: "Book 1, Module 5.2, LO 5.c"
+                },
+                {
+                    id: 71,
+                    text: "The expected rate of return is 1.5 times the 16% expected rate of return from the market. What is the beta if the risk free rate is 8%?",
+                    options: [
+                        "2.",
+                        "5.",
+                        "4.",
+                        "3."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "24 = 8 + β (16 - 8); 24 = 8 + 8β; 16 = 8β; 16 / 8 = β; β = 2",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                }
+                // 注意：這裡只添加了第11-20題，您可以按照相同格式繼續添加第21-71題
+                // 每個題目對象的格式為：{id: 數字, text: "問題", options: ["A", "B", "C", "D"], correctAnswer: 索引, explanation: "解釋", module: "模組"}
+
+              
+            ],
+            "A6": [
+                {
+                    id: 1,
+                    text: "Which of the following statements regarding the arbitrage pricing theory (APT) as compared to the capital asset pricing model (CAPM) is least accurate? APT:",
+                    options: [
+                        "is more flexible than CAPM in its application.",
+                        "is often times thought of as a special case of the CAPM.",
+                        "has fewer assumptions than CAPM.",
+                        "does not require that one of the risk factors is the market portfolio; unlike the CAPM."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The CAPM is often times thought of as a special case of the APT since CAPM has only one factor, the market portfolio.",
+                    module: "Book 1, Module 6.2, LO 6.f"
+                },
+                {
+                    id: 2,
+                    text: "Which of the following is not an assumption of the arbitrage pricing theory (APT)?",
+                    options: [
+                        "No arbitrage opportunities exist.",
+                        "Returns on assets can be described by a multi-factor process.",
+                        "Security returns are normally distributed.",
+                        "The market contains enough stocks so that unsystematic risk can be diversified away."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "APT does not require that security returns be normally distributed.",
+                    module: "Book 1, Module 6.2, LO 6.f"
+                },
+                {
+                    id: 3,
+                    text: "An arbitrage pricing theory (APT) model has the following characteristics: The risk free rate is 3.8 percent. Factor risk premiums are: A (7 percent), B (4 percent), C (2 percent), D (10 percent). Assume Silver Linings Fund has the following sensitivities to the factors: Sensitivity to A is 0.5, Sensitivity to B is 1.2, Sensitivity to C is 2.1, Sensitivity to D is 0.2. The expected return on the Silver Linings Fund is:",
+                    options: [
+                        "20.1 percent.",
+                        "16.8 percent.",
+                        "18.3 percent.",
+                        "14.5 percent."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "E(R) = 3.8 + (0.5 × 7) + (1.2 × 4) + (2.1 × 2) + (0.2 × 10) = 18.3.",
+                    module: "Book 1, Module 6.2, LO 6.f"
+                },
+                {
+                    id: 4,
+                    text: "For the model used as an example in the seminar, if the T-bill rate is 3.5%, what are the expected returns for the Growth and Value Funds? Betas for Growth: Factor 1: 0.5, Factor 2: 0.7, Factor 3: 1.2. Betas for Value: Factor 1: 0.2, Factor 2: 1.8, Factor 3: 0.6. Factor premiums: f1=3.0%, f2=-40.0%, f3=50.0%.",
+                    options: [
+                        "E(R_Growth) 37.0%, E(R_Value) -37.9%",
+                        "E(R_Growth) 93.0%, E(R_Value) -106.1%",
+                        "E(R_Growth) 33.5%, E(R_Value) -41.4%",
+                        "E(R_Growth) 3.1%, E(R_Value) -3.16%"
+                    ],
+                    correctAnswer: 0,
+                    explanation: "E(R_Growth) = 0.035 + 0.03(0.5) - 0.4(0.7) + 0.5(1.2) = 0.035 + 0.015 - 0.28 + 0.6 = 0.37 or 37.0%; E(R_Value) = 0.035 + 0.03(0.2) - 0.4(1.8) + 0.5(0.6) = 0.035 + 0.006 - 0.72 + 0.30 = -0.379 or -37.9%",
+                    module: "Book 1, Module 6.2, LO 6.f"
+                },
+                {
+                    id: 5,
+                    text: "Which of the following is least likely an assumption of the arbitrage pricing theory (APT) model?",
+                    options: [
+                        "asset returns are normally distributed.",
+                        "a large number of available assets for investment allow investors to eliminate non-systematic risk through diversification.",
+                        "asset returns are explained by a factor model.",
+                        "no arbitrage opportunities are available to investors because capital markets are perfectly competitive."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "It is not necessary to assume that asset returns are normally distributed. The arbitrage pricing theory (APT) model allows for different characteristics of return distributions to be captured by the factors in the model.",
+                    module: "Book 1, Module 6.2, LO 6.f"
+                },
+                {
+                    id: 6,
+                    text: "Which of the following is an assumption of the arbitrage pricing theory (APT)?",
+                    options: [
+                        "Security returns are normally distributed.",
+                        "Assets are priced such that no arbitrage opportunities exist.",
+                        "Investors have quadratic utility functions.",
+                        "The process generating asset returns can be represented by a 5-factor model."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "APT implies that investors will undertake infinitely large positions (long and short) to exploit any perceived mispricing, causing asset prices to adjust immediately to their equilibrium values.",
+                    module: "Book 1, Module 6.1, LO 6.a"
+                },
+                {
+                    id: 7,
+                    text: "Which of the following statements least likely describes characteristics of the APT and the CAPM?",
+                    options: [
+                        "Under the framework of CAPM, investors who are more risk averse should hold less of the market portfolio and more of the risk-free asset.",
+                        "Both models require the ability to invest in the market portfolio.",
+                        "Both models assume firm-specific risk can be diversified away.",
+                        "The APT is more flexible than the CAPM because it allows for multiple factors."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The CAPM can be thought of as a subset of the APT, multifactor model. Therefore, fewer assumptions are needed for the APT model than the CAPM. Although it could be included as a factor, the APT does not require an investment in the market portfolio.",
+                    module: "Book 1, Module 6.2, LO 6.f"
+                },
+                {
+                    id: 8,
+                    text: "What is the APT expected return on a factor portfolio exposed only to ΔGDP?",
+                    options: [
+                        "15.0%.",
+                        "3.0%.",
+                        "12.0%.",
+                        "18.0%."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "A factor portfolio is a portfolio with a factor sensitivity of one to a particular factor and zero to all other factors. The expected return on a 'factor 1' portfolio is E(R_R) = 6.0% + 12.0% (1.00) - 3.0%(0.00) = 18.0%.",
+                    module: "Book 1, Module 6.2, LO 6.f"
+                },
+                {
+                    id: 9,
+                    text: "Given a three-factor arbitrage pricing theory (APT) model, what is the expected return on the Premium Dividend Yield Fund? The factor risk premiums to factors 1, 2 and 3 are 8%, 12% and 5%, respectively. The fund has sensitivities to the factors 1, 2, and 3 of 2.0, 1.0 and 1.0, respectively. The risk-free rate is 3.0%.",
+                    options: [
+                        "36.0%.",
+                        "50.0%.",
+                        "28.0%.",
+                        "33.0%."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "The expected return on the Premium Dividend Yield Fund is 3% + (8.0%)(2.0) + (12.0%)(1.0) + (5.0%)(1.0) = 36.0%.",
+                    module: "Book 1, Module 6.2, LO 6.f"
+                }
+
+            ],
+            "A7": [
+                {
+                    id: 1,
+                    text: "Which of the following statements is least likely consistent with the Basel Committee's guidance and principles regarding effective risk data aggregation and risk reporting practices?",
+                    options: [
+                        "A single data model must be used for data classifications.",
+                        "Data architecture should include information on metadata.",
+                        "Risk managers and business managers are responsible for accurately managing and entering relevant data into their data infrastructure.",
+                        "Banks should devote financial and human resources to data aggregation and reporting roles throughout a market cycle."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Multiple data models can be used for data classification if a bank has healthy automated reconciliation measures in place.",
+                    module: "Book 1, Module 7.1, LO 7.d"
+                },
+                {
+                    id: 2,
+                    text: "Which of the following statements is least likely consistent with the Basel Committee's guidance and principles regarding data aggregation?",
+                    options: [
+                        "Time frames should be established to integrate data and risk reporting capabilities of acquired firms.",
+                        "Data aggregation and risk reporting capabilities should be independently reviewed and validated.",
+                        "A bank's board of directors should be aware of its compliance with key governance principles set forth by the Basel Committee.",
+                        "Data aggregation and reporting decisions should be based on a bank's physical location and legal structure."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "Data aggregation and reporting decisions should be independent of a bank's physical location, geographical presence and legal structure.",
+                    module: "Book 1, Module 7.1, LO 7.c"
+                },
+                {
+                    id: 3,
+                    text: "Ponder Bank has experienced recent losses resulting from regional home loan concentration. While the national market has recovered, a few regions have suffered. Ponder bank is now undercapitalized because of the losses. The Basel Committee's principles for effective risk data aggregation and reporting can help prevent and deal with situations like what Ponder Bank is experiencing. Which one of the committee's principles most likely recommends that risk management reports include risk data, risk analysis, interpretation of risk, and qualitative explanations of risks?",
+                    options: [
+                        "Completeness.",
+                        "Clarity and Usefulness.",
+                        "Accuracy.",
+                        "Comprehensiveness."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "According to the committee 'risk management reports should communicate information in a clear and concise manner. Reports should be easy to understand yet comprehensive enough to facilitate informed decision-making. Reports should include meaningful information tailored to the needs of the recipients.' Principle 9 (Clarity and Usefulness) requires that: Reports be tailored to the end user and should assist them with sound risk management and decision-making. Reports will include: risk data, risk analysis, interpretation of risks, and qualitative explanations of risks.",
+                    module: "Book 1, Module 7.2, LO 7.f"
+                },
+                {
+                    id: 4,
+                    text: "The risk aggregation process includes breaking down, sorting, and merging data and datasets. Several benefits accrue to banks that have effective risk data aggregation and reporting systems in place. Which of the following statements least likely describes a benefit of effective risk data aggregation?",
+                    options: [
+                        "It is easier to see problems on the horizon when risks are viewed individually rather than as a whole.",
+                        "Improved resolvability in the event of bank stress or failure.",
+                        "The bank is better able to make strategic decisions, increase efficiency, reduce the chance of loss, and ultimately increase profitability.",
+                        "Increase efficiency, reduce the chance of loss, and ultimately increase profitability."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Several benefits accrue to banks that have effective risk data aggregation and reporting systems in place. These benefits include: An increased ability to anticipate problems. Aggregated data allows risk managers to understand risks holistically. It is easier to see problems on the horizon when risks are viewed as a whole rather than in isolation.",
+                    module: "Book 1, Module 7.1, LO 7.a"
+                },
+                {
+                    id: 5,
+                    text: "The Basel Committee Principles for effective risk data aggregation capabilities include:",
+                    options: [
+                        "competence, diligence, and adaptability.",
+                        "accuracy and integrity, completeness, competence, and diligence.",
+                        "competence, diligence, and timeliness.",
+                        "accuracy and integrity, completeness, timeliness, and adaptability."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The Principles of the Basel Committee for effective risk data aggregation capabilities include accuracy and integrity, completeness, timeliness and adaptability. Aggregated risk data should exhibit all of these features together, not in isolation.",
+                    module: "Book 1, Module 7.2, LO 7.e"
+                }
+            ],
+            "A8": [
+                {
+                    id: 1,
+                    text: "Bank XYZ's senior management and its board of directors currently receive fragmented risk management information from various functional units. Given the shortcomings of this approach, the chief risk officer (CRO) suggests a more centralized risk management system. Which of the following statements is correct regarding the implementation of an enterprise risk management (ERM) program? I. ERM is crucial in establishing a firm-wide, integrated set of policies, procedures, and standards. II. ERM increases the efficiency of managing company risks.",
+                    options: [
+                        "Neither I nor II.",
+                        "II only.",
+                        "Both I and II.",
+                        "I only."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Given the noted shortcomings of the traditional approach, an integrated and centralized framework would significantly increase the efficiency of managing company risks. Such a centralized approach is called enterprise risk management (ERM). ERM is crucial in establishing a firm-wide, integrated set of policies, procedures, and standards. From senior management's perspective, an ERM system provides an invaluable overall risk perspective and control.",
+                    module: "Book 1, Module 8.1, LO 8.a"
+                },
+                {
+                    id: 2,
+                    text: "Setting a firm's risk appetite is most likely associated with which of the following enterprise risk management (ERM) dimensions?",
+                    options: [
+                        "Structure",
+                        "Strategies",
+                        "Metrics",
+                        "Targets"
+                    ],
+                    correctAnswer: 3,
+                    explanation: "A strong ERM framework has five important dimensions: (1) targets, (2) structure, (3) identification and metrics, (4) ERM strategies, and (5) risk culture. Targets include: risk appetite and goals in light of the firm's risk appetite.",
+                    module: "Book 1, Module 8.1, LO 8.d"
+                },
+                {
+                    id: 3,
+                    text: "Which of the following statements is most likely a disadvantage to using scenario analysis?",
+                    options: [
+                        "Scenario analysis may be straightforward or highly sophisticated.",
+                        "Scenario analysis can be intuitive and transparent.",
+                        "Scenario analysis leads to a quantification of risk, which is needed for models built around scenarios.",
+                        "Scenario analysis may be used to develop the firm's risk appetite, set risk limits, and be used in capital adequacy planning."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Scenario analysis does not lead to a quantification of risk because it is qualitative in nature (though quantitative models are built around scenarios).",
+                    module: "Book 1, Module 8.2, LO 8.f"
+                },
+                {
+                    id: 4,
+                    text: "The risk culture of a firm is the goals, customs, values, and beliefs that influence the behaviors of employees. Which of the following indicators is a key internal risk culture indicator identified by the Financial Stability Board (FSB)?",
+                    options: [
+                        "Tone from top management",
+                        "Country risks",
+                        "The economic cycle",
+                        "Changing industry practices"
+                    ],
+                    correctAnswer: 0,
+                    explanation: "The FSB has specified four key risk indicators for a strong risk culture: (1) tone from the top of the organization, (2) effective communication and challenge, (3) incentives, and (4) accountability. The other factors mentioned are external factors for a strong risk culture.",
+                    module: "Book 1, Module 8.2, LO 8.e"
+                },
+                {
+                    id: 5,
+                    text: "Which of the following characteristics most likely describes enterprise risk management (ERM) as opposed to a traditional silo-based risk management program?",
+                    options: [
+                        "Isolating risk managers from the chief risk officer",
+                        "Managing risks within the lines of business",
+                        "Reviewing risks across all business lines, functional areas, and risk types",
+                        "Hedging risks with specific risk transfer tools"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Under an ERM view, risks are viewed as a component of the whole. In a siloed approach, these are typically treated as separate decisions without a strategic approach to the overall enterprise risk. Reviewing risks across all business lines, functional areas, and risk types is a characteristic of ERM.",
+                    module: "Book 1, Module 8.1, LO 8.a"
+                }
+            ],
+            "A9": [
+                {
+                    id: 1,
+                    text: "Banker's Trust used derivative trades, which promised corporate clients a high-probability, small reduction in funding costs in exchange for a low-probability, large loss. Unfortunately, the derivative trades only resulted in significant losses for its clients. This case demonstrated the importance of:",
+                    options: [
+                        "investigating large profits from unknown trading strategies.",
+                        "developing more accurate methods for computing collateral when borrowing bonds.",
+                        "incorporating liquidity risk into risk models.",
+                        "matching trades with a client's needs and providing price quotes that are independent from the front office."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The actions at Banker's Trust led to tighter controls for dealing with clients at other firms. This case demonstrated the importance of matching trades with a client's needs and providing price quotes that are independent from the front office.",
+                    module: "Book 1, Module 9.3, LO 9.a"
+                },
+                {
+                    id: 2,
+                    text: "Information systems at Barings Bank were deficient for all of the following reasons except:",
+                    options: [
+                        "incomplete account information on gains and losses.",
+                        "technological limitations that hindered accurate financial reporting.",
+                        "management's inability to detect the inconsistency of Leeson's trading strategy and profits.",
+                        "management's failure to audit reporting quality."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The Barings collapse did not result from technological limitations. Management is responsible for auditing and ensuring the quality of the information it receives. Barings management failed to do so and received information without questioning it.",
+                    module: "Book 1, Module 9.2, LO 9.a"
+                },
+                {
+                    id: 3,
+                    text: "In general, the bankruptcy of Barings Bank might have been avoided with:",
+                    options: [
+                        "a more moderate use of leverage.",
+                        "maturity matching between the hedging instrument and the asset being hedged.",
+                        "pricing models less vulnerable to model risk.",
+                        "stronger reporting and control systems."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "In general, the Barings Bank collapse was the result of poor operational controls characterized by poor reporting systems, weak management oversight, and poor organizational structure.",
+                    module: "Book 1, Module 9.2, LO 9.a"
+                },
+                {
+                    id: 4,
+                    text: "Which of the following factors contributed to the collapse of Barings Bank?",
+                    options: [
+                        "A maturity mismatch between the hedging instrument and the risk being hedged.",
+                        "Basis risk.",
+                        "Japanese financial reporting requirements.",
+                        "A trader having authority in the settlement process."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "In an effort to recover trading losses, Nick Leeson abandoned hedged arbitrage strategies on the Nikkei 225 in favor of extremely speculative strategies that exposed the firm to enormous risk in the event of a market downfall. His activities went undetected because his influence on the settlement process and back-office operations allowed him to report phony gains to management.",
+                    module: "Book 1, Module 9.2, LO 9.a"
+                },
+                {
+                    id: 5,
+                    text: "Which of the following choices is an example of operational risk in the collapse of Barings?",
+                    options: [
+                        "The default of Japanese industrial firms.",
+                        "The Nikkei collapsed due to an earthquake.",
+                        "Much of a company's assets were in illiquid derivative products.",
+                        "Failure to supervise the actions of its trader."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The failure to supervise the actions of its trader is an example of operational risk.",
+                    module: "Book 1, Module 9.2, LO 9.a"
+                },
+                {
+                    id: 6,
+                    text: "Which of the following are examples of model risk illustrated in the Long-Term Capital Management (LTCM) case? I. Poor management oversight. II. Financial reporting standards.",
+                    options: [
+                        "Both I and II.",
+                        "Neither I nor II.",
+                        "I only.",
+                        "II only."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "LTCM's models underestimated the extent to which securities prices would move together in times of economic crisis. The models also failed to anticipate that multiple economic shocks might occur in clusters through time (i.e., be positively autocorrelated) as economic history suggests. Poor management oversight and financial reporting standards are not issues in the LTCM case.",
+                    module: "Book 1, Module 9.2, LO 9.a"
+                },
+                {
+                    id: 7,
+                    text: "All of the following are reasons that Nick Leeson engaged in aggressive speculative trading in the Barings Bank collapse except:",
+                    options: [
+                        "Barings' lack of risk management oversight.",
+                        "Barings' risk management models were flawed.",
+                        "he was attempting to recover previous trading losses.",
+                        "his authority over settlement operations allowed him to hide trading losses."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The collapse of Barings Bank was not an instance of flawed hedging models, but one of poor operational control. Leeson had previously incurred huge trading losses that, if revealed, would have cost him his job. In an effort to recover those losses, he abandoned his hedging strategies and speculated to recoup these losses.",
+                    module: "Book 1, Module 9.2, LO 9.a"
+                }
+                // 注意：A9有7題，這裡只添加了5題作為示例
+            ],
+            "A10": [
+                {
+                    id: 1,
+                    text: "Which of the following statements regarding securitization is least accurate?",
+                    options: [
+                        "Securitization enables an originating institution to transfer the default risk of the underlying pool of assets.",
+                        "Securitization gives originating banks greater incentive to approve and monitor loans carefully.",
+                        "Securitization may allow institutional investors to indirectly hold assets that they are prevented from holding directly.",
+                        "Securitization enabled the originate-to-distribute banking model."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "After securitization, banks have less incentive to be careful in making loans because much of the risk will be borne by other institutions.",
+                    module: "Book 1, Module 10.1, LO 10.c"
+                },
+                {
+                    id: 2,
+                    text: "The creation collateralized debt obligations (CDOs) most likely involves:",
+                    options: [
+                        "forming an undiversified portfolio from a small sample of debt securities.",
+                        "selling the equity tranche to institutions that desire or require instruments with high credit ratings.",
+                        "slicing the cash flows from a portfolio of collected debt securities into a number of investable tranches.",
+                        "the CDO issuer retaining the most senior tranches to give that bank incentive to monitor the loan."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The creation of a CDO might be thought of as a three-step process: (1) form a diversified portfolio, (2) slice the portfolio into tranches, and (3) sell tranches to investors.",
+                    module: "Book 1, Module 10.1, LO 10.c"
+                },
+                {
+                    id: 3,
+                    text: "Regarding the key factors that led to the housing bubble in 2007-2009, which of the following statements is correct?",
+                    options: [
+                        "The Federal Reserve adopted a strict interest rate policy that promoted low interest rates to fend off inflation after the bursting of the internet bubble.",
+                        "Cheap money and plentiful borrowing opportunities led to a flood of real estate purchases, which generated a housing boom.",
+                        "A decrease in demand for U.S. securities by foreign governments experiencing trade surpluses put upward pressure on interest rates.",
+                        "An increase in lending standards and abundance of cheap credit led banks to offer credit at low interest rates and lenient terms."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "A decline in lending standards and abundance of cheap credit led banks to offer credit at low interest rates and lenient terms. This environment of cheap money and plentiful borrowing opportunities led to a flood of real estate purchases, which generated a housing boom.",
+                    module: "Book 1, Module 10.1, LO 10.b"
+                },
+                {
+                    id: 4,
+                    text: "Which of the following most accurately describe the main trigger and main vulnerability of the financial crisis of 2007-2009?",
+                    options: [
+                        "Trigger: Run on ABCP, Vulnerability: Shadow banks",
+                        "Trigger: Lehman Brothers bankruptcy, Vulnerability: Money market mutual funds",
+                        "Trigger: Losses on subprime mortgages, Vulnerability: ABCP and repo agreements",
+                        "Trigger: Mortgage defaults by homeowners, Vulnerability: Holders of MBSs"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The main trigger was the prospect of losses on subprime mortgages. The losses on subprime mortgages caused MBSs to be downgraded, causing a run on ABCP that contained the MBSs.",
+                    module: "Book 1, Module 10.1, LO 10.e"
+                },
+                {
+                    id: 5,
+                    text: "The financial crisis that stemmed from rising mortgage delinquencies and falling housing prices led to a worldwide liquidity crisis because institutions had:",
+                    options: [
+                        "held too much equity capital.",
+                        "generated large maturity mismatches between assets and liabilities.",
+                        "become less interconnected.",
+                        "not taken enough leverage."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The financial crisis that stemmed from rising mortgage delinquencies and falling housing prices led to a worldwide liquidity crisis because institutions had (1) taken on too much leverage, (2) generated large maturity mismatches between assets and liabilities, and (3) become too interconnected.",
+                    module: "Book 1, Module 10.1, LO 10.a"
+                }
+            ],
+            "A11": [
+                {
+                    id: 1,
+                    text: "Preservation of confidentiality applies to the information that an analyst learns from:",
+                    options: [
+                        "current clients and prospects only.",
+                        "current clients and former clients only.",
+                        "current clients, former clients, and prospects.",
+                        "former clients and prospects only."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "According to Standard 3.1 and 3.2, confidentiality, a GARP Member shall not make use of confidential information for inappropriate purposes and unless having received prior consent shall maintain the confidentiality of their work, their employer, or client.",
+                    module: "Book 1, Module 11.1, LO 11.a"
+                },
+                {
+                    id: 2,
+                    text: "Charmaine Townsend, FRM, has been managing a growth portfolio for her clients using a screening process that identifies companies that have high earnings growth rates. Townsend has decided that, because she thinks the economy might turn volatile, she is going to adopt a value strategy using a screening process that identifies companies that have low price-earnings multiples. Townsend will violate the GARP Code of Conduct if she makes this change in her investment process without:",
+                    options: [
+                        "promptly notifying her clients of the change.",
+                        "getting written permission from her clients in advance of the change.",
+                        "getting prompt written acknowledgment of the change from her clients within a reasonable time after the change was made.",
+                        "notifying her supervisor before she makes the change."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "GARP Members shall make full and fair disclosure of all matters that could reasonably be expected to impair independence and objectivity or interfere with respective duties to their employer, clients, and prospective clients.",
+                    module: "Book 1, Module 11.1, LO 11.a"
+                },
+                {
+                    id: 3,
+                    text: "Will Lambert, FRM, is a financial risk analyst for Offshore Investments. He is preparing a purchase recommendation on Burch Corporation. According to the GARP Code of Conduct, which of the following statements about disclosure of conflicts is most correct? Lambert would have to disclose that:",
+                    options: [
+                        "his wife owns 2,000 shares of Burch Corporation.",
+                        "all of these choices require disclosure.",
+                        "he has a material beneficial ownership of Burch Corporation through a family trust.",
+                        "Offshore is an OTC market maker for Burch Corporation's stock."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "According to Standard 2.2, GARP Members shall make full and fair disclosure of all matters that could reasonably be expected to impair independence and objectivity or interfere with respective duties to their employer, clients, and prospective clients.",
+                    module: "Book 1, Module 11.1, LO 11.a"
+                },
+                {
+                    id: 4,
+                    text: "The Investment Banking Department of MLB&J often receives material nonpublic information that could have considerable value to MLB&J's brokerage clients. To comply with the GARP Code of Conduct, MLB&J should most appropriately:",
+                    options: [
+                        "prohibit MLB&J analysts from making buy or sell recommendations on this information until ten business days after the receipt of this information.",
+                        "contact the firms involved and request that they make this information available to the public before MLB&J allows its clients to trade in these securities.",
+                        "ensure that material nonpublic information is not disseminated beyond the firm's investment banking, brokerage, and research departments.",
+                        "restrict proprietary trading in the securities of companies about which the Investment Banking Department has access to material nonpublic information."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "According to Standard 1.3, GARP members must take reasonable precautions to ensure that Member's services are not used for improper, fraudulent or illegal purposes.",
+                    module: "Book 1, Module 11.1, LO 11.a"
+                },
+                {
+                    id: 5,
+                    text: "Which of the following statements is incorrect regarding GARP Code of Conduct violations?",
+                    options: [
+                        "If the Code of Conduct and certain laws conflict, then the GARP Code of Conduct will take priority.",
+                        "Violations of the Code of Conduct may result in permanent removal from GARP membership.",
+                        "Violations of the Code of Conduct may result in temporary suspension from GARP membership.",
+                        "Violations of the Code of Conduct could lead to a revocation of the right to use the FRM designation."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "All GARP Members are expected to act in accordance with the GARP Code of Conduct as well as any local laws and regulations that pertain to the risk management profession. If the Code and certain laws conflict, then laws and regulations will take priority.",
+                    module: "Book 1, Module 11.1, LO 11.b"
+                },
+                {
+                    id: 6,
+                    text: "Sue Johnson, FRM, has an elderly client with a very large asset base. The client intends to start divesting her fortune to various charities. Johnson is on the Board of a local charitable foundation. Johnson most appropriately:",
+                    options: [
+                        "must not discuss anything regarding her client and her client's intentions with the charitable foundation without permission.",
+                        "can make this known to the charitable foundation so that they can solicit the client, since it is the client's wish to divest assets to charities in the future.",
+                        "can discuss her client's situation with the charitable foundation as long as she informs other local charities of her client's intentions.",
+                        "should solicit the client herself, along with other Board members, to obtain a larger contribution."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "To comply with Standard 3.1, Johnson must not discuss with her charitable foundation anything regarding her client and her client's intentions. It does not matter that her client intends to give money to charities in the near future.",
+                    module: "Book 1, Module 11.1, LO 11.a"
+                },
+                {
+                    id: 7,
+                    text: "When an analyst makes an investment recommendation, which of the following statements must be disclosed to clients?",
+                    options: [
+                        "An employee of the firm holds a directorship with the recommended company.",
+                        "All of these statements must be disclosed to clients.",
+                        "The firm is a market maker in the stock of the recommended company.",
+                        "The analyst's father-in-law has a material ownership in the security."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "GARP Members must make full and fair disclosure of all matters that could reasonably be expected to impair independence and objectivity or interfere with respective duties to their employer, clients, and prospective clients.",
+                    module: "Book 1, Module 11.1, LO 11.a"
                 }
             ]
         };
-
 
         // 錯題庫管理
         class WrongQuestionsManager {
@@ -1040,6 +2707,7 @@
             clearWrongQuestions() {
                 this.wrongQuestions = [];
                 this.saveWrongQuestions();
+                return true;
             }
             
             // 移除特定錯題
@@ -1057,7 +2725,6 @@
                 return false;
             }
         }
-
 
         // 應用狀態
         let currentQuestionIndex = 0;
@@ -1085,6 +2752,8 @@
         const subdirectoryGrid = document.getElementById('subdirectory-grid');
         const wrongQuestionsGrid = document.getElementById('wrong-questions-grid');
         const currentTopicElement = document.getElementById('current-topic');
+        const clearWrongQuestionsBtn = document.getElementById('clear-wrong-questions-btn');
+        const wrongQuestionsCountBadge = document.getElementById('wrong-questions-count-badge');
         
         // 練習介面元素
         const questionTextElement = document.getElementById('question-text');
@@ -1133,6 +2802,7 @@
             backToMainBtn.addEventListener('click', backToMainCatalog);
             backToMainWrongBtn.addEventListener('click', backToMainCatalog);
             backToCatalogBtn.addEventListener('click', backToCatalog);
+            clearWrongQuestionsBtn.addEventListener('click', clearWrongQuestions);
             
             // 初始化練習介面事件
             submitBtn.addEventListener('click', submitAnswer);
@@ -1141,6 +2811,17 @@
             
             // 初始化錯題庫目錄
             initWrongQuestionsCatalog();
+            updateWrongQuestionsCountBadge();
+        }
+        
+        // 更新錯題庫數量徽章
+        function updateWrongQuestionsCountBadge() {
+            const count = wrongQuestionsManager.getWrongQuestionCount();
+            if (count > 0) {
+                wrongQuestionsCountBadge.textContent = `(${count})`;
+            } else {
+                wrongQuestionsCountBadge.textContent = '';
+            }
         }
         
         // 初始化錯題庫目錄
@@ -1157,8 +2838,8 @@
             
             if (wrongQuestionsByTopic.length === 0) {
                 wrongQuestionsGrid.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: #95a5a6;">
-                        <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 20px; color: #2ecc71;"></i>
+                    <div class="no-questions-message">
+                        <i class="fas fa-check-circle no-questions-icon" style="color: #2ecc71;"></i>
                         <h3 style="margin-bottom: 10px;">暫無錯題</h3>
                         <p>目前沒有答錯的題目，繼續保持！</p>
                     </div>
@@ -1204,6 +2885,22 @@
             
             allWrongQuestionsItem.addEventListener('click', () => selectAllWrongQuestions());
             wrongQuestionsGrid.appendChild(allWrongQuestionsItem);
+        }
+        
+        // 清空錯題庫
+        function clearWrongQuestions() {
+            if (confirm('確定要清空錯題庫嗎？此操作無法復原。')) {
+                if (wrongQuestionsManager.clearWrongQuestions()) {
+                    alert('錯題庫已清空！');
+                    updateWrongQuestionsCatalog();
+                    updateWrongQuestionsCountBadge();
+                    
+                    // 如果當前正在練習錯題庫，返回目錄
+                    if (isWrongQuestionsMode) {
+                        backToCatalog();
+                    }
+                }
+            }
         }
         
         // 打開錯題庫目錄
@@ -1328,20 +3025,47 @@
             
             // 添加子目錄項目
             section.subdirectories.forEach(subdirectory => {
+                // 動態計算題目數量
+                const questionCount = questionBanks[subdirectory.id] ? questionBanks[subdirectory.id].length : 0;
+                
                 const subdirectoryItem = document.createElement('div');
                 subdirectoryItem.className = 'subdirectory-item';
                 subdirectoryItem.dataset.id = subdirectory.id;
                 
                 subdirectoryItem.innerHTML = `
                     <div class="subdirectory-name">${subdirectory.name}</div>
-                    <div class="question-count">${subdirectory.questionCount > 0 ? `${subdirectory.questionCount} 題` : '暫無題目'}</div>
+                    <div class="question-count">${questionCount > 0 ? `${questionCount} 題` : '暫無題目'}</div>
                 `;
                 
-                // 添加點擊事件
-                subdirectoryItem.addEventListener('click', () => selectSubdirectory(subdirectory.id));
+                // 如果沒有題目，添加無題目提示樣式
+                if (questionCount === 0) {
+                    subdirectoryItem.style.opacity = '0.7';
+                    subdirectoryItem.style.cursor = 'not-allowed';
+                    subdirectoryItem.addEventListener('click', () => {
+                        alert('此主題暫無題目，請選擇其他主題');
+                    });
+                } else {
+                    // 添加點擊事件
+                    subdirectoryItem.addEventListener('click', () => selectSubdirectory(subdirectory.id));
+                }
                 
                 subdirectoryGrid.appendChild(subdirectoryItem);
             });
+            
+            // 如果所有子目錄都沒有題目，顯示提示
+            const allEmpty = section.subdirectories.every(subdirectory => 
+                !questionBanks[subdirectory.id] || questionBanks[subdirectory.id].length === 0
+            );
+            
+            if (allEmpty) {
+                subdirectoryGrid.innerHTML = `
+                    <div class="no-questions-message">
+                        <i class="fas fa-book no-questions-icon"></i>
+                        <h3 style="margin-bottom: 10px;">暫無題目</h3>
+                        <p>此主題下所有子目錄目前都沒有題目，請選擇其他主題。</p>
+                    </div>
+                `;
+            }
             
             // 切換到子目錄介面
             mainCatalogInterface.style.display = 'none';
@@ -1400,6 +3124,7 @@
             
             if (isWrongQuestionsMode) {
                 updateWrongQuestionsCatalog();
+                updateWrongQuestionsCountBadge();
                 wrongQuestionsCatalog.style.display = 'block';
             } else {
                 mainCatalogInterface.style.display = 'block';
@@ -1544,6 +3269,9 @@
                         if (currentQuestionIndex >= currentQuestions.length) {
                             currentQuestionIndex = currentQuestions.length - 1;
                         }
+                        
+                        // 更新錯題庫徽章
+                        updateWrongQuestionsCountBadge();
                     }
                     
                     // 更新錯題庫統計
@@ -1562,6 +3290,9 @@
                             currentTopic,
                             `${sectionKey}. ${section.title} - ${subdirectory.name}`
                         );
+                        
+                        // 更新錯題庫徽章
+                        updateWrongQuestionsCountBadge();
                     }
                 } else if (question.isWrongQuestion) {
                     // 在錯題庫模式中答錯，重置連續答對次數
@@ -1678,3 +3409,4 @@
     </script>
 </body>
 </html>
+
