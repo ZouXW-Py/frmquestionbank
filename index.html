@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -728,9 +728,8 @@
     </div>
     
     <footer>
-        <p>FRM題庫練習系統 &copy; 2023 | 基於Kaplan FRM題庫內容 | 版本 3.0 - 完整題庫版</p>
+        <p>FRM題庫練習系統 &copy; 2023 | 基於Kaplan FRM題庫內容 | 版本 2.0</p>
     </footer>
-
 
     <script>
         // 目錄結構 - 修正為動態計算題目數量
@@ -825,7 +824,6 @@
                 subdirectories: []
             }
         };
-
 
         // 題庫數據 - 完整FRM題目 (A. Foundations of Risk Management)
         const questionBanks = {
@@ -1384,11 +1382,671 @@
                     explanation: "Since the portfolio is well diversified, the assumed level of unsystematic risk is zero. The addition of ABC Inc will increase the portfolio beta, and, hence, the level of systematic risk.",
                     module: "Book 1, Module 5.2, LO 5.b"
                 },
-
-
+                {
+                    id: 21,
+                    text: "Jenny Rouse has been a portfolio manager for Theta Advisors for the last five years. The performance of her portfolio has had few returns below its benchmarks since its inception. Which of the following risk measures best measures Rouse's performance?",
+                    options: [
+                        "Range.",
+                        "Sharpe ratio.",
+                        "Sortino ratio.",
+                        "Standard Deviation."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The Sortino ratio examines the downside risk of returns. It is calculated as the portfolio return minus the minimum acceptable return divided by downside deviation. Since Rouse's portfolio has had consistently higher returns, she should not be penalized for any variability on the upside. The range (the difference between the highest and lowest values), standard deviation, and Sharpe ratio (which uses the standard deviation in the denominator) examine all returns, whether they correspond to positive or negative alphas. The use of these measures would result in risk measurements that are unfairly high in Rouse's case.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 22,
+                    text: "A portfolio has a return of 14.2% and a Sharpe's measure of 3.52. If the risk-free rate is 4.7%, what is the standard deviation of returns?",
+                    options: [
+                        "3.9%.",
+                        "2.7%.",
+                        "3.1%.",
+                        "2.6%."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Standard Deviation of Returns = (14.2% – 4.7%) / 3.52 = 2.6988.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 23,
+                    text: "The Sortino ratio is most similar to the:",
+                    options: [
+                        "Sharpe ratio.",
+                        "Treynor ratio.",
+                        "information ratio.",
+                        "relative tracking error ratio."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "The Sortino ratio is similar to the Sharpe ratio except for two changes. We replace the risk-free rate with a minimum acceptable return, denoted R_min, and we replace the standard deviation with a type of semivariance.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 24,
+                    text: "Johnson Inc. manages a growth portfolio of equity securities that has had a mean monthly return of 1.4% and a standard deviation of returns of 10.8%. Smith Inc. manages a blended equity and fixed income portfolio that has had a mean monthly return of 1.2% and a standard deviation of returns of 6.8%. The mean monthly return on Treasury bills has been 0.3%. Based on the Sharpe ratio, the:",
+                    options: [
+                        "shows that the Johnson and Smith portfolios have exhibited the same risk-adjusted performance.",
+                        "Johnson portfolio has greater excess return per unit of risk than the Smith portfolio.",
+                        "performance of the Johnson portfolio is preferable to the performance of the Smith portfolio.",
+                        "performance of the Smith portfolio is preferable to the performance of the Johnson portfolio."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The Sharpe ratio for the Johnson portfolio is (1.4 – 0.3) / 10.8 = 0.1019. The Sharpe ratio for the Smith portfolio is (1.2 – 0.3) / 6.8 = 0.1324. The Smith portfolio has the higher Sharpe ratio, or greater excess return per unit of risk.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 25,
+                    text: "Which Sharpe ratio indicates that Fund One earned a return on investment that is greater than the risk taken by the fund?",
+                    options: [
+                        "0.5.",
+                        "1.5.",
+                        "0.",
+                        "1.0."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "A Sharpe ratio of 1 indicates the risk and return of the investment are proportional, while a lower ratio indicates greater risk was taken and a higher ratio indicates less risk was taken to generate the return on investment.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 26,
+                    text: "Over the previous year, the average and variance of a portfolio's returns was 0.18 and 0.09. The risk-free rate over the period was 0.03. The Sharpe ratio for the portfolio for the previous year is:",
+                    options: [
+                        "3.0.",
+                        "1.5.",
+                        "0.5.",
+                        "0.6."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The Sharpe ratio is the difference between the average of the portfolio's return minus the risk-free rate, 0.15 = 0.18 - 0.03, divided by the standard deviation, which is the square root of the variance: 0.3 = 0.09^0.5. The Sharpe ratio is 0.5 = 0.15 / 0.3.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 27,
+                    text: "Which of the following measures used to evaluate the performance of a portfolio manager is (are) not subject to the assumptions of the capital asset pricing model (CAPM)?",
+                    options: [
+                        "Sharpe measure.",
+                        "Jensen's alpha and the Treynor measure.",
+                        "Jensen's alpha.",
+                        "Treynor measure."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Both the Treynor measure and the Jensen's alpha assume that the CAPM is the underlying risk-adjustment model. The Sharpe measure on the other hand does not make this assumption. It uses total risk of a portfolio, unlike the Treynor measure and Jensen's alpha, which use the systematic (undiversifiable) risk as measured by beta to compute the risk-adjusted return of a portfolio.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 28,
+                    text: "The Sortino ratio is a measure of a portfolio's return above:",
+                    options: [
+                        "a minimal acceptable return divided by downside deviation.",
+                        "the market return divided by beta.",
+                        "zero divided by the standard deviation.",
+                        "the market return divided by the standard deviation."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "The definition of the Sortino ratio is a predefined minimal acceptable return divided by downside deviation.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 29,
+                    text: "According to the security market line (SML), which of the three securities is correctly priced? Alpha: Price Today 25, Forecasted Price 31, Dividend 2, Beta 1.6; Omega: Price Today 105, Forecasted Price 110, Dividend 1, Beta 1.2; Lambda: Price Today 10, Forecasted Price 10.80, Dividend 0, Beta 0.5. The expected return on the market is 12% and the risk-free rate is 4%.",
+                    options: [
+                        "None of the securities are correctly priced.",
+                        "Lambda.",
+                        "Omega.",
+                        "Alpha."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "For Alpha: ER = (31 – 25 + 2) / 25 = 32%, RR = 4 + 1.6 × (12 – 4) = 16.8%. Stock is underpriced. For Omega: ER = (110 – 105 + 1) / 105 = 5.7%, RR = 4 + 1.2 × (12 – 4) = 13.6%. Stock is overpriced. For Lambda, ER = (10.8 – 10 + 0) / 10 = 8%, RR = 4 + 0.5 × (12 – 4) = 8%. Stock is correctly priced.",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 30,
+                    text: "Which of the three securities identified by Williams would plot on the capital market line (CML)?",
+                    options: [
+                        "Omega.",
+                        "None of the securities would plot on the CML.",
+                        "Lambda.",
+                        "Alpha."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "By definition, all stocks and portfolios (other than the market portfolio) fall below the CML. (Only the market portfolio is efficient).",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 31,
+                    text: "Consider the following graph of the Security Market Line (SML). The letters X, Y, and Z represent risky asset portfolios. The SML crosses the y-axis at the point 0.07. The expected market return equals 13.0%. Note: The graph is not drawn to scale. Using the graph above and the information provided, which of the following statements is most accurate?",
+                    options: [
+                        "Portfolio X's required return is greater than the market expected return.",
+                        "Portfolio Y is undervalued.",
+                        "The expected return (or holding period return) for Portfolio Z equals 14.8%.",
+                        "The correct label for the x-axis is total risk."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "At first, it appears that we are not given the information needed to calculate the holding period, or expected return. However, we are given the information required to calculate the required return (CAPM) and since Portfolio Z is on the SML, we know that the required return (RR) equals the expected return (ER). So, ER = RR = R_f + (ER_M - R_f) × Beta = 7.0% + (13.0% - 7.0%) × 1.3 = 14.8%.",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 32,
+                    text: "Which of the following statements about asset pricing models is most accurate?",
+                    options: [
+                        "According to the capital asset pricing model (CAPM), the expected rate of return of a portfolio with a beta of 1.0 is the market expected return.",
+                        "Adding the risk-free asset to a portfolio will reduce return and total risk.",
+                        "Assuming assets are not perfectly positively correlated, the systematic risk of a portfolio decreases as more assets are added.",
+                        "It is difficult for the individual investor to achieve the benefits from diversification because significantly reducing risk requires the purchase of"
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Diversification reduces unsystematic, or unique risk. With the risk-free asset and a portfolio of risky assets, the equation for the expected standard deviation is linear. A combination of the risk free asset and a portfolio always gives more return for a given level of risk.",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 33,
+                    text: "Beta is least accurately described as:",
+                    options: [
+                        "a standardized measure of the total risk of a security.",
+                        "the covariance of a security's returns with the market return, divided by the variance of market returns.",
+                        "the factor by which the market risk premium is multiplied in the Capital Asset Pricing Model.",
+                        "a measure of the sensitivity of a security's return to the market return."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Beta is a standardized measure of the systematic risk of a security. β = Cov_{r,mkt} / σ^2_{mkt}. Beta is multiplied by the market risk premium in the CAPM: E(R_i) = RFR + β[E(R_{mkt}) - RFR].",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 34,
+                    text: "Modern portfolio theory is least likely to assume that:",
+                    options: [
+                        "it is possible to buy or sell fractional shares of an investment.",
+                        "investors can lend any amount of money at the risk-free rate.",
+                        "all investors desire to be the same location on the efficient frontier.",
+                        "all investors have the same one-period time horizon."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Modern portfolio theory assumes that all investors want to be on the efficient frontier, but the exact location on the efficient frontier for each investor will depend on that investor's risk-return utility function.",
+                    module: "Book 1, Module 5.1, LO 5.a"
+                },
+                {
+                    id: 35,
+                    text: "A portfolio manager wants to purchase stocks with betas that are greater than the market beta. He has asked his analyst to evaluate two stocks, Stock X and Stock Y, and determine if their betas are greater than the market beta. The following information about Stocks X and Y is available to the analyst: Stock X: Standard deviation of returns 0.15, Covariance between the return on the market and Stock X 0.014; Stock Y: Standard deviation of returns 0.16, Covariance between the return on the market and Stock Y 0.021. The return on the market is 0.12 and the standard deviation of returns on the market is 0.13. Which of the stocks should the analyst recommend?",
+                    options: [
+                        "Recommend X: No, Recommend Y: No",
+                        "Recommend X: Yes, Recommend Y: Yes",
+                        "Recommend X: Yes, Recommend Y: No",
+                        "Recommend X: No, Recommend Y: Yes"
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The analyst should recommend the stock if the stock's beta is greater than 1. Stock X's beta = 0.014 / (0.13)^2 = 0.82. Stock Y's beta = 0.021 / (0.13)^2 = 1.24.",
+                    module: "Book 1, Module 5.2, LO 5.f"
+                },
+                {
+                    id: 36,
+                    text: "An analyst has generated the following information about risk/return performance using the Sharpe ratio and the Treynor measure: Equity Fund: Sharpe ratio 0.47, Treynor measure 0.31; S&P 500: Sharpe ratio 0.42, Treynor measure 0.34. Which of the following statements about the relative risk/return performance of the funds is true? The:",
+                    options: [
+                        "Treynor measure shows the fund underperformed the S&P 500 on a total risk-adjusted basis.",
+                        "Sharpe ratio shows the equity fund outperformed the S&P 500 on a total risk-adjusted basis.",
+                        "Treynor measure shows the fund outperformed the S&P 500 on a systematic risk-adjusted basis.",
+                        "Sharpe ratio shows the equity fund underperformed the S&P 500 on a systematic risk-adjusted basis."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "With either the Sharpe or Treynor methodology, a higher number means a higher risk-adjusted return. Since the Sharpe ratio is 0.05 higher, it outperformed the S&P 500.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 37,
+                    text: "Portfolio A earned a return of 10.23% and had a standard deviation of returns of 6.22%. If the return over the same period on Treasury bills (T-bills) was 0.52% and the return to Treasury bonds (T-bonds) was 4.56%, what is the Sharpe ratio of the portfolio?",
+                    options: [
+                        "1.56.",
+                        "7.71.",
+                        "0.56.",
+                        "0.91."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Sharpe ratio = (R_p - R_f) / σ_p, where (R_p - R_f) is the difference between the portfolio return and the risk free rate, and σ_p is the standard deviation of portfolio returns. Thus, the Sharpe ratio is: (10.23 - 0.52) / 6.22 = 1.56.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 38,
+                    text: "Given a beta of 1.10 and a risk-free rate of 5 percent, what is the expected rate of return assuming a 10 percent market return?",
+                    options: [
+                        "21.5%.",
+                        "15.5%.",
+                        "5.5%.",
+                        "10.5%."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "k = 5 + 1.10 (10 – 5) = 5 + 1.10 (5) = 5 + 5.5 = 10.5",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 39,
+                    text: "An analyst has gathered the following information about the performance of an equity fund and the S&P 500 index over the same time period. Equity Fund: Return 13%, Standard Deviation 22%, Beta 1.21; S&P 500: Return 10.5%, Standard Deviation 20%, Beta 1.00. Risk-free rate is 5.25%. The Treynor measure for the equity fund is:",
+                    options: [
+                        "0.570.",
+                        "0.071.",
+                        "0.064.",
+                        "0.048."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "(0.13 - 0.0525) / 1.21 = 0.064",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 40,
+                    text: "The intercept and slope of the capital market line are:",
+                    options: [
+                        "R_M and [E(R_M) - R_P] / σ_M, respectively.",
+                        "R_F and [E(R_P) - R_F] / σ_M, respectively.",
+                        "R_M and [E(R_P) - R_F] / σ_P, respectively.",
+                        "R_F and [E(R_M) - R_F] / σ_M, respectively."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The CML is expressed by the following equation: E(R_P) = R_F + [E(R_M) - R_F]/σ_M × σ_P. The line begins at the vertical axis at R_F. With each increase in σ_P, the expected return increases by [E(R_M) - R_F] / σ_M.",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 41,
+                    text: "The market portfolio in the capital market line contains which types of investments?",
+                    options: [
+                        "All stocks and bonds in existence.",
+                        "All risky and risk-free assets in existence.",
+                        "All risky assets in existence.",
+                        "All stocks in existence."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The market portfolio contains all risky assets in existence. It does not contain any risk-free assets.",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 42,
+                    text: "Consider the expected returns and standard deviations for the following portfolios: Portfolio 1: Expected Return 10%, Standard Deviation 14%; Portfolio 2: Expected Return 12%, Standard Deviation 13%; Portfolio 3: Expected Return 11%, Standard Deviation 12%; Portfolio 4: Expected Return 14%, Standard Deviation 18%. Relative to the other portfolios, the portfolio that is not mean variance efficient is:",
+                    options: [
+                        "Portfolio 3.",
+                        "Portfolio 2.",
+                        "Portfolio 4.",
+                        "Portfolio 1."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "Portfolio 1 is not efficient because it has a lower expected return and higher risk than both Portfolios 2 and 3.",
+                    module: "Book 1, Module 5.1, LO 5.a"
+                },
+                {
+                    id: 43,
+                    text: "According to the capital asset pricing model, a negative risk premium:",
+                    options: [
+                        "would only occur if the covariance of a security's return with the return on the market is positive.",
+                        "is an impossibility.",
+                        "would only occur if the covariance of a security's return with the return on the market is zero.",
+                        "would only occur if the covariance of a security's return with the return on the market is negative."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "A negative risk premium would occur if the beta of the security was negative, which would occur if the covariance of a security's return with the return on the market is negative.",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 44,
+                    text: "A portfolio to the right of the market portfolio on the capital market line (CML) is created by:",
+                    options: [
+                        "holding both the risk-free asset and the market portfolio.",
+                        "holding more than 100% of the risky asset.",
+                        "fully diversifying.",
+                        "buying the risk-free asset."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Portfolios that lie to the right of the market portfolio on the capital market line are created by borrowing funds to own more than 100% of the market portfolio (M).",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 45,
+                    text: "Which of the following statements about systematic and unsystematic risk is least accurate?",
+                    options: [
+                        "As compared to a less-diversified portfolio, a diversified portfolio has lower unsystematic risk.",
+                        "As an investor increases the number of stocks in a portfolio, the systematic risk will remain constant.",
+                        "Total risk equals market risk plus firm-specific risk.",
+                        "The unsystematic risk for a specific firm is similar to the unsystematic risk for other firms in the same industry."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "This statement should read, 'The unsystematic risk for a specific firm is not similar to the unsystematic risk for other firms in the same industry.' Thus, other terms for this risk are firm-specific, or unique, risk.",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 46,
+                    text: "Of the Sharpe, Treynor, and Jensen's Alpha measures, when measuring the risk/return performance of actively managed portfolios, which is the most appropriate to use?",
+                    options: [
+                        "Sharpe ratio.",
+                        "Jensen's Alpha.",
+                        "All three measures are equally appropriate.",
+                        "Treynor measure."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Jensen's Alpha measures the value added of an active portfolio strategy.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 47,
+                    text: "The Treynor measure is correctly defined as a measure of a fund's:",
+                    options: [
+                        "excess earned compared to its systematic risk.",
+                        "return earned compared to its unsystematic risk.",
+                        "excess return earned compared to its total risk.",
+                        "return earned compared to its systematic risk."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "The Treynor measure is defined as a fund's excess return (fund's return minus the risk-free rate) divided by its systematic risk (beta).",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 48,
+                    text: "According to capital market theory, which of the following represents the risky portfolio that should be held by all investors who desire to hold risky assets?",
+                    options: [
+                        "The point of tangency between the capital market line (CML) and the efficient frontier.",
+                        "Any point on the efficient frontier and to the right of the point of tangency between the CML and the efficient frontier.",
+                        "Any point on the efficient frontier and to the left of the point of tangency between the CML and the efficient frontier.",
+                        "Any point on the efficient frontier and above the CML."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Capital market theory suggests that all investors should invest in the same portfolio of risky assets, and this portfolio is located at the point of tangency of the CML and the efficient frontier of risky assets.",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 49,
+                    text: "Portfolio A earned an annual return of 15% with a standard deviation of 28%. If the mean return on Treasury bills (T-bills) is 4%, the Sharpe ratio for the portfolio is:",
+                    options: [
+                        "0.54.",
+                        "1.87.",
+                        "2.54.",
+                        "0.39."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "(15 - 4) / 28 = 0.39",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 50,
+                    text: "For an investor to move further up the capital market line than the market portfolio, the investor must:",
+                    options: [
+                        "diversify the portfolio even more.",
+                        "borrow and invest in the market portfolio.",
+                        "continue to invest only in common stocks.",
+                        "reduce the portfolio's risk below that of the market."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Portfolios that lie to the right of the market portfolio on the capital market line ('up' the capital market line) are created by borrowing funds to own more than 100% of the market portfolio (M).",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 51,
+                    text: "What is the Sharpe ratio for the Trumark Fund? The Trumark Fund has an average annual return of 12 percent over the last five years, standard deviation of returns of 16.80 percent, and during the same time period, the average annual T-bill rate was 4.5 percent.",
+                    options: [
+                        "7.50.",
+                        "0.80.",
+                        "0.45.",
+                        "5.56."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Sharpe Ratio = (R_j - R_F) / σ_j = (12 - 4.50) / 16.80 = 0.45",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 52,
+                    text: "What is the Treynor measure for Trumark Fund? The Trumark Fund has an average annual return of 12 percent over the last five years, beta value of 1.35, and during the same time period, the average annual T-bill rate was 4.5 percent.",
+                    options: [
+                        "-0.04.",
+                        "0.80.",
+                        "0.06.",
+                        "0.45."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Treynor measure = (R_j - R_F) / β_j = (0.12 - 0.0450) / 1.35 = 0.0556",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 53,
+                    text: "Charlie Smith holds two portfolios, Portfolio X and Portfolio Y. They are both liquid, well-diversified portfolios with approximately equal market values. He expects Portfolio X to return 13% and Portfolio Y to return 14% over the upcoming year. Because of an unexpected need for cash, Smith is forced to sell at least one of the portfolios. He uses the security market line to determine whether his portfolios are undervalued or overvalued. Portfolio X's beta is 0.9 and Portfolio Y's beta is 1.1. The expected return on the market is 12% and the risk-free rate is 5%. Smith should sell:",
+                    options: [
+                        "portfolio Y only.",
+                        "both portfolios X and Y because they are both overvalued.",
+                        "either portfolio X or Y because they are both properly valued.",
+                        "portfolio X only."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Portfolio X's required return is 0.05 + 0.9 × (0.12 - 0.05) = 11.3%. It is expected to return 13%. The portfolio has an expected excess return of 1.7%. Portfolio Y's required return is 0.05 + 1.1 × (0.12 - 0.05) = 12.7%. It is expected to return 14%. The portfolio has an expected excess return of 1.3%. Since both portfolios are undervalued, the investor should sell the portfolio that offers less excess return. Sell Portfolio Y because its excess return is less than that of Portfolio X.",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 54,
+                    text: "A security's systematic risk is proportional to:",
+                    options: [
+                        "its diversifiable risk.",
+                        "the covariance of its return with the return on the market portfolio.",
+                        "the variance of its return.",
+                        "the standard deviation of its return."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The measure of systematic risk is beta, and beta is proportional to the covariance of a security's return with the return on the market portfolio.",
+                    module: "Book 1, Module 5.2, LO 5.f"
+                },
+                {
+                    id: 55,
+                    text: "Which of the following statements regarding the Sharpe ratio is most accurate? The Sharpe ratio measures:",
+                    options: [
+                        "peakedness of a return distribution.",
+                        "dispersion relative to the mean.",
+                        "total return per unit of risk.",
+                        "excess return per unit of risk."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The Sharpe ratio measures excess return per unit of risk. Remember that the numerator of the Sharpe ratio is (portfolio return – risk free rate), hence the importance of excess return.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 56,
+                    text: "A stock is expected to earn a return of 10%, which is 6% greater than the risk-free rate. If the expected return on the market is 12% and the beta of the stock is 0.75, the stock most likely:",
+                    options: [
+                        "will plot below the security market line.",
+                        "is properly valued.",
+                        "is overvalued.",
+                        "will plot above the security market line."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The risk-free rate is 10% – 6% = 4%. Using the CAPM, the required return on the stock is 4% + 0.75(12% – 4%) = 10%. Because the expected return on the stock is equal to its required return, the stock is properly valued according to the CAPM and will plot on the security market line.",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 57,
+                    text: "A portfolio of options had a return of 22% with a standard deviation of 20%. If the risk-free rate is 7.5%, what is the Sharpe ratio for the portfolio?",
+                    options: [
+                        "0.267.",
+                        "0.725.",
+                        "0.147.",
+                        "0.568."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Sharpe ratio = (22% - 7.50%) / 20% = 0.725.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 58,
+                    text: "The efficient market portfolio had a return of 12%. The risk-free rate was 6%. A portfolio has a beta of 1.2. If the portfolio return was 12%, which of the following is closest to the Treynor ratio for the portfolio?",
+                    options: [
+                        "0.",
+                        "0.20.",
+                        "1.",
+                        "0.05."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The Treynor ratio is the difference between the portfolio return and the risk-free rate divided by the beta: 0.05 = (0.12 - 0.06) / 1.2",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 59,
+                    text: "If the standard deviation of the market's returns is 5.8%, the standard deviation of a stock's returns is 8.2%, and the covariance of the market's returns with the stock's returns is 0.003, what is the beta of the stock?",
+                    options: [
+                        "1.07.",
+                        "1.12.",
+                        "0.05.",
+                        "0.89."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The formula for beta is: (Cov_stock,market) / (Var_market), or (0.003) / (0.058)^2 = 0.89.",
+                    module: "Book 1, Module 5.2, LO 5.f"
+                },
+                {
+                    id: 60,
+                    text: "The efficient market portfolio had a return of 14%. The risk-free rate was 5%. A portfolio has a beta of 0.8. If the portfolio return was 11%, then Jensen's alpha for the portfolio equals:",
+                    options: [
+                        "-1.200%.",
+                        "+3.000%.",
+                        "+8.000%.",
+                        "-0.375%."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Jensen's alpha = -1.20% = 11% - [5% + 0.8(14% - 5%)]",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 61,
+                    text: "An investor believes Stock M will rise from a current price of $20 per share to a price of $26 per share over the next year. The company is not expected to pay a dividend. The following information pertains: R_F = 8%, E_R_M = 16%, Beta = 1.7. Should the investor purchase the stock?",
+                    options: [
+                        "No, because it is undervalued.",
+                        "No, because it is overvalued.",
+                        "Yes, because it is undervalued.",
+                        "Yes, because it is overvalued."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "ER = (26 - 20) / 20 = 0.30 or 30%, RR = 8 + (16 - 8) × 1.7 = 21.6%. The stock is underpriced therefore purchase.",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 62,
+                    text: "Given the following data, what is the beta of stock A? Standard deviation of returns of Stock A is 10.04%, standard deviation of the market is 3.01%, covariance between the market and stock A is 0.002.",
+                    options: [
+                        "0.02.",
+                        "0.66.",
+                        "2.20.",
+                        "3.34."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "beta of stock A = covariance between stock and the market / variance of the market. Beta = 0.002 / 0.0301^2 = 2.2",
+                    module: "Book 1, Module 5.2, LO 5.f"
+                },
+                {
+                    id: 63,
+                    text: "Portfolios X and Y have had an equal average return over the most recent period. Compared to Portfolio Y, Portfolio X had higher total risk, but lower systematic risk. Given this information, which of the following statements is true? Compared to Portfolio Y:",
+                    options: [
+                        "Portfolio X has both a lower Sharpe ratio and a lower Treynor ratio.",
+                        "Portfolio X has a higher Sharpe ratio and a lower Treynor ratio.",
+                        "Portfolio X has both a higher Sharpe and a higher Treynor ratio.",
+                        "Portfolio X has a lower Sharpe ratio and a higher Treynor ratio."
+                    ],
+                    correctAnswer: 3,
+                    explanation: "The two portfolios will have the same numerator for both the Sharpe and the Treynor ratio. Thus, the denominator of the two measures will determine their relative sizes. The Sharpe measure has the standard deviation or total risk in the denominator, thus the value will be lower for X. Since X has lower systematic risk, its denominator in the Treynor measure will be lower and the overall measure will be higher for X.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 64,
+                    text: "Jensen's alpha for a portfolio measures the:",
+                    options: [
+                        "difference between the fund's Sharpe ratio and Treynor measure.",
+                        "fund's return in excess of the required rate of return given the systematic risk of the portfolio.",
+                        "fund's return in excess of the required rate of return given the unsystematic risk of the portfolio.",
+                        "difference between a fund's return and the market return."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Jensen's alpha measures the return above the required rate of return based on the fund's systematic risk. Said differently, Jensen's alpha is the amount of return earned by the fund over and above the return predicted for the fund based on the capital asset pricing model, given the fund's systematic risk.",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 65,
+                    text: "The expected rate of return is twice the 12% expected rate of return from the market. What is the beta if the risk-free rate is 6%?",
+                    options: [
+                        "5.",
+                        "3.",
+                        "4.",
+                        "2."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "24 = 6 + β (12 - 6); 18 = 6β; β = 3",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 66,
+                    text: "Which of the following statements about a stock's beta is true? A beta greater than one is:",
+                    options: [
+                        "overvalued, while a beta less than one is undervalued.",
+                        "is riskier than the market, while a beta less than one is less risky than the market.",
+                        "undervalued, while a beta less than one is overvalued.",
+                        "risky, while a beta less than one is risk-free."
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Beta is a measure of the volatility of a stock. The overall market's beta is one. A stock with higher systematic risk than the market will have a beta greater than one, while a stock that has a lower systematic risk will have a beta less than one.",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                },
+                {
+                    id: 67,
+                    text: "Which of the following is the vertical axis Intercept for the capital market line (CML)?",
+                    options: [
+                        "Risk-free rate.",
+                        "Efficient frontier.",
+                        "Expected return on the portfolio.",
+                        "Expected return on the market."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "The CML originates on the vertical axis from the point of the risk-free rate.",
+                    module: "Book 1, Module 5.1, LO 5.d"
+                },
+                {
+                    id: 68,
+                    text: "Total Quality Inc. has a beta of 1.15. If the expected return on the market is 12 percent, and the risk-free rate is 6 percent, what is the expected return for Total Quality?",
+                    options: [
+                        "12.90%.",
+                        "11.69%.",
+                        "14.00%.",
+                        "10.15%."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Expected return = R_f + β(R_M - R_f) = 6 + 1.15 (12 - 6) = 12.90%",
+                    module: "Book 1, Module 5.2, LO 5.e"
+                },
+                {
+                    id: 69,
+                    text: "A higher Sharpe ratio indicates:",
+                    options: [
+                        "greater diversification in the portfolio.",
+                        "lower volatility of returns.",
+                        "a higher excess return per unit of risk.",
+                        "a lower risk per unit of return."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The Sharpe ratio is excess return (return – R_f) per unit of risk (defined as the standard deviation of returns).",
+                    module: "Book 1, Module 5.3, LO 5.g"
+                },
+                {
+                    id: 70,
+                    text: "Which of the following statements regarding the capital asset pricing model (CAPM) is least accurate?",
+                    options: [
+                        "It relies on the existence of a risk-free asset.",
+                        "Its accuracy depends on the accuracy of the beta estimates.",
+                        "It is when the security market line (SML) and capital market line (CML) converge.",
+                        "It assumes information is freely available."
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The CML plots expected return versus standard deviation risk. The SML plots expected return versus beta risk. Therefore, they are lines that are plotted in different two-dimensional spaces and will not converge.",
+                    module: "Book 1, Module 5.2, LO 5.c"
+                },
+                {
+                    id: 71,
+                    text: "The expected rate of return is 1.5 times the 16% expected rate of return from the market. What is the beta if the risk free rate is 8%?",
+                    options: [
+                        "2.",
+                        "5.",
+                        "4.",
+                        "3."
+                    ],
+                    correctAnswer: 0,
+                    explanation: "24 = 8 + β (16 - 8); 24 = 8 + 8β; 16 = 8β; 16 / 8 = β; β = 2",
+                    module: "Book 1, Module 5.2, LO 5.b"
+                }
                 // 注意：這裡只添加了第11-20題，您可以按照相同格式繼續添加第21-71題
                 // 每個題目對象的格式為：{id: 數字, text: "問題", options: ["A", "B", "C", "D"], correctAnswer: 索引, explanation: "解釋", module: "模組"}
-
 
               
             ],
@@ -1510,7 +2168,6 @@
                     explanation: "The expected return on the Premium Dividend Yield Fund is 3% + (8.0%)(2.0) + (12.0%)(1.0) + (5.0%)(1.0) = 36.0%.",
                     module: "Book 1, Module 6.2, LO 6.f"
                 }
-
 
             ],
             "A7": [
@@ -1903,7 +2560,6 @@
             ]
         };
 
-
         // 錯題庫管理
         class WrongQuestionsManager {
             constructor() {
@@ -2069,7 +2725,6 @@
                 return false;
             }
         }
-
 
         // 應用狀態
         let currentQuestionIndex = 0;
@@ -2754,3 +3409,4 @@
     </script>
 </body>
 </html>
+
