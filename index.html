@@ -167,6 +167,44 @@
             color: #95a5a6;
         }
         
+        /* 隨機練習按鈕樣式 */
+        .random-practice-btn {
+            background-color: #9b59b6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .random-practice-btn:hover {
+            background-color: #8e44ad;
+        }
+        
+        .random-practice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .random-practice-info {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            background-color: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 5px;
+            border-left: 3px solid #9b59b6;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
         /* 錯題庫子目錄特殊樣式 */
         .wrong-question-stats {
             display: flex;
@@ -273,6 +311,17 @@
         .correct-count-tag {
             background-color: #e8f7ef;
             color: #2ecc71;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+        
+        /* 隨機練習標記 */
+        .random-practice-tag {
+            background-color: #f4ecf7;
+            color: #9b59b6;
             padding: 3px 8px;
             border-radius: 4px;
             font-size: 0.8rem;
@@ -504,6 +553,17 @@
             .subdirectory-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .random-practice-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .random-practice-btn {
+                margin-left: 0;
+                align-self: flex-start;
+            }
         }
         
         /* 新增：無題目提示樣式 */
@@ -535,6 +595,81 @@
         
         .clear-wrong-questions-btn:hover {
             background-color: #c0392b;
+        }
+        
+        /* 新增：章節隨機練習容器 */
+        .chapter-random-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #9b59b6;
+        }
+        
+        .chapter-random-title {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chapter-random-title i {
+            color: #9b59b6;
+        }
+        
+        .random-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .random-option-btn {
+            background-color: #9b59b6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .random-option-btn:hover {
+            background-color: #8e44ad;
+        }
+        
+        .random-option-btn.small {
+            background-color: #d7bde2;
+            color: #2c3e50;
+        }
+        
+        .random-option-btn.small:hover {
+            background-color: #c39bd3;
+        }
+        
+        /* 主題隨機練習選項 */
+        .topic-random-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .topic-random-btn:hover {
+            background-color: #2980b9;
         }
     </style>
 </head>
@@ -598,12 +733,26 @@
     <div id="sub-catalog-interface" class="sub-catalog-container">
         <div class="sub-catalog-header">
             <h2 class="sub-catalog-title" id="sub-catalog-title">子目錄</h2>
-            <button class="back-to-main" id="back-to-main-btn">
-                <i class="fas fa-arrow-left"></i> 返回主目錄
-            </button>
+            <div>
+                <button class="random-practice-btn" id="random-practice-chapter-btn">
+                    <i class="fas fa-random"></i> 章節隨機練習
+                </button>
+                <button class="back-to-main" id="back-to-main-btn">
+                    <i class="fas fa-arrow-left"></i> 返回主目錄
+                </button>
+            </div>
         </div>
         <div class="subdirectory-grid" id="subdirectory-grid">
             <!-- 子目錄將由JavaScript動態生成 -->
+        </div>
+        <!-- 章節隨機練習選項 -->
+        <div class="chapter-random-container" id="chapter-random-container" style="display: none;">
+            <div class="chapter-random-title">
+                <i class="fas fa-dice"></i> 章節隨機練習選項
+            </div>
+            <div class="random-options" id="chapter-random-options">
+                <!-- 隨機選項將由JavaScript動態生成 -->
+            </div>
         </div>
     </div>
     
@@ -634,6 +783,7 @@
         <div class="current-selection">
             <span class="selection-label">當前練習主題：</span>
             <span class="selection-value" id="current-topic">未選擇</span>
+            <span class="random-practice-tag" id="random-practice-tag" style="display: none;">隨機練習</span>
         </div>
         
         <div class="stats-container" id="stats-container">
@@ -673,6 +823,11 @@
                 <div class="stat-value" id="mastery-rate">0%</div>
                 <div class="stat-label">掌握率</div>
             </div>
+        </div>
+        
+        <!-- 隨機練習資訊 -->
+        <div class="random-practice-info" id="random-practice-info" style="display: none;">
+            <i class="fas fa-info-circle"></i> 當前為隨機練習模式，題目順序已打亂
         </div>
         
         <div class="question-container">
@@ -728,11 +883,11 @@
     </div>
     
     <footer>
-        <p>FRM題庫練習系統 &copy; 2023 | 基於Kaplan FRM題庫內容 | 版本 2.0</p>
+        <p>FRM題庫練習系統 &copy; 2023 | 基於Kaplan FRM題庫內容 | 版本 2.1</p>
     </footer>
 
     <script>
-        // 目錄結構 - 修正為動態計算題目數量
+        // 目錄結構
         const catalog = {
             "A": {
                 title: "Foundations of Risk Management",
@@ -825,8 +980,8 @@
             }
         };
 
-        // 題庫數據 - 完整FRM題目 (A. Foundations of Risk Management)
-        const questionBanks = {
+        // 題庫數據 - 擴充示例題目
+   const questionBanks = {
             "A1": [
                 {
                     id: 1,
@@ -3620,6 +3775,8 @@
         let currentQuestions = [];
         let currentSection = null;
         let isWrongQuestionsMode = false;
+        let isRandomMode = false; // 新增：隨機模式標記
+        let randomTopics = []; // 新增：隨機練習包含的主題
         
         // 初始化錯題管理器
         const wrongQuestionsManager = new WrongQuestionsManager();
@@ -3638,6 +3795,11 @@
         const currentTopicElement = document.getElementById('current-topic');
         const clearWrongQuestionsBtn = document.getElementById('clear-wrong-questions-btn');
         const wrongQuestionsCountBadge = document.getElementById('wrong-questions-count-badge');
+        const randomPracticeChapterBtn = document.getElementById('random-practice-chapter-btn');
+        const chapterRandomContainer = document.getElementById('chapter-random-container');
+        const chapterRandomOptions = document.getElementById('chapter-random-options');
+        const randomPracticeInfo = document.getElementById('random-practice-info');
+        const randomPracticeTag = document.getElementById('random-practice-tag');
         
         // 練習介面元素
         const questionTextElement = document.getElementById('question-text');
@@ -3687,6 +3849,7 @@
             backToMainWrongBtn.addEventListener('click', backToMainCatalog);
             backToCatalogBtn.addEventListener('click', backToCatalog);
             clearWrongQuestionsBtn.addEventListener('click', clearWrongQuestions);
+            randomPracticeChapterBtn.addEventListener('click', toggleChapterRandomOptions);
             
             // 初始化練習介面事件
             submitBtn.addEventListener('click', submitAnswer);
@@ -3806,6 +3969,7 @@
             
             // 設置為錯題庫模式
             isWrongQuestionsMode = true;
+            isRandomMode = false;
             currentTopic = topicId;
             currentQuestions = topic.questions.map(q => ({
                 id: q.questionId,
@@ -3820,6 +3984,8 @@
             
             // 更新當前主題顯示
             currentTopicElement.textContent = `錯題庫 - ${topic.topicName}`;
+            randomPracticeTag.style.display = 'none';
+            randomPracticeInfo.style.display = 'none';
             
             // 重置練習狀態
             resetPracticeState();
@@ -3850,6 +4016,7 @@
             
             // 設置為錯題庫模式
             isWrongQuestionsMode = true;
+            isRandomMode = false;
             currentTopic = 'W_ALL';
             currentQuestions = allWrongQuestions.map(q => ({
                 id: q.questionId,
@@ -3864,6 +4031,8 @@
             
             // 更新當前主題顯示
             currentTopicElement.textContent = `錯題庫 - 所有錯題`;
+            randomPracticeTag.style.display = 'none';
+            randomPracticeInfo.style.display = 'none';
             
             // 重置練習狀態
             resetPracticeState();
@@ -3907,6 +4076,9 @@
             // 清空子目錄網格
             subdirectoryGrid.innerHTML = '';
             
+            // 重置隨機練習容器
+            chapterRandomContainer.style.display = 'none';
+            
             // 添加子目錄項目
             section.subdirectories.forEach(subdirectory => {
                 // 動態計算題目數量
@@ -3929,7 +4101,7 @@
                         alert('此主題暫無題目，請選擇其他主題');
                     });
                 } else {
-                    // 添加點擊事件
+                    // 添加點擊事件 - 正常練習
                     subdirectoryItem.addEventListener('click', () => selectSubdirectory(subdirectory.id));
                 }
                 
@@ -3956,9 +4128,155 @@
             subCatalogInterface.style.display = 'block';
         }
         
-        // 選擇子目錄
+        // 切換章節隨機練習選項
+        function toggleChapterRandomOptions() {
+            if (chapterRandomContainer.style.display === 'none') {
+                showChapterRandomOptions();
+            } else {
+                chapterRandomContainer.style.display = 'none';
+            }
+        }
+        
+        // 顯示章節隨機練習選項
+        function showChapterRandomOptions() {
+            const section = catalog[currentSection];
+            
+            // 清空隨機選項
+            chapterRandomOptions.innerHTML = '';
+            
+            // 創建隨機選項
+            const option1 = document.createElement('button');
+            option1.className = 'random-option-btn';
+            option1.innerHTML = '<i class="fas fa-random"></i> 從本章所有題目隨機出題';
+            option1.addEventListener('click', () => startChapterRandomPractice('all'));
+            
+            const option2 = document.createElement('button');
+            option2.className = 'random-option-btn';
+            option2.innerHTML = '<i class="fas fa-dice"></i> 從本章隨機選擇5題';
+            option2.addEventListener('click', () => startChapterRandomPractice('5'));
+            
+            const option3 = document.createElement('button');
+            option3.className = 'random-option-btn';
+            option3.innerHTML = '<i class="fas fa-dice-five"></i> 從本章隨機選擇10題';
+            option3.addEventListener('click', () => startChapterRandomPractice('10'));
+            
+            const option4 = document.createElement('button');
+            option4.className = 'random-option-btn small';
+            option4.innerHTML = '<i class="fas fa-question-circle"></i> 自定義題數';
+            option4.addEventListener('click', () => {
+                const count = prompt('請輸入要練習的題目數量 (1-50):', '15');
+                if (count && !isNaN(count) && count > 0 && count <= 50) {
+                    startChapterRandomPractice(count);
+                }
+            });
+            
+            chapterRandomOptions.appendChild(option1);
+            chapterRandomOptions.appendChild(option2);
+            chapterRandomOptions.appendChild(option3);
+            chapterRandomOptions.appendChild(option4);
+            
+            // 顯示隨機練習容器
+            chapterRandomContainer.style.display = 'block';
+        }
+        
+        // 開始章節隨機練習
+        function startChapterRandomPractice(mode) {
+            const section = catalog[currentSection];
+            const allQuestions = [];
+            const topics = [];
+            
+            // 收集本章所有題目
+            section.subdirectories.forEach(subdirectory => {
+                const questions = questionBanks[subdirectory.id];
+                if (questions && questions.length > 0) {
+                    topics.push({
+                        id: subdirectory.id,
+                        name: subdirectory.name
+                    });
+                    
+                    questions.forEach(q => {
+                        allQuestions.push({
+                            ...q,
+                            topicId: subdirectory.id,
+                            topicName: subdirectory.name
+                        });
+                    });
+                }
+            });
+            
+            if (allQuestions.length === 0) {
+                alert('本章暫無題目，請選擇其他主題');
+                return;
+            }
+            
+            // 根據模式選擇題目
+            let selectedQuestions = [];
+            
+            if (mode === 'all') {
+                // 使用所有題目，但隨機排序
+                selectedQuestions = [...allQuestions];
+            } else {
+                // 隨機選擇指定數量的題目
+                const count = parseInt(mode);
+                selectedQuestions = getRandomQuestions(allQuestions, count);
+            }
+            
+            // 隨機排序題目
+            selectedQuestions = shuffleArray(selectedQuestions);
+            
+            // 設置為隨機模式
+            isWrongQuestionsMode = false;
+            isRandomMode = true;
+            currentTopic = `${currentSection}_RANDOM`;
+            randomTopics = topics;
+            currentQuestions = selectedQuestions;
+            
+            // 更新當前主題顯示
+            currentTopicElement.textContent = `${currentSection}. ${section.title} - 隨機練習`;
+            randomPracticeTag.style.display = 'inline-block';
+            randomPracticeInfo.style.display = 'block';
+            
+            // 重置練習狀態
+            resetPracticeState();
+            
+            // 切換到練習介面
+            subCatalogInterface.style.display = 'none';
+            practiceInterface.style.display = 'block';
+            
+            // 顯示普通統計
+            statsContainer.style.display = 'flex';
+            wrongQuestionsStats.style.display = 'none';
+            
+            // 載入第一題
+            loadQuestion(currentQuestionIndex);
+            updateStats();
+            updateProgress();
+        }
+        
+        // 從數組中隨機選擇指定數量的元素
+        function getRandomQuestions(questions, count) {
+            if (questions.length <= count) {
+                return [...questions];
+            }
+            
+            const shuffled = [...questions].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+        
+        // 隨機打亂數組
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+        
+        // 選擇子目錄（正常練習）
         function selectSubdirectory(subdirectoryId) {
             isWrongQuestionsMode = false;
+            isRandomMode = false;
             currentTopic = subdirectoryId;
             
             // 載入對應題庫
@@ -3977,6 +4295,9 @@
             if (subdirectory) {
                 currentTopicElement.textContent = `${sectionKey}. ${section.title} - ${subdirectory.name}`;
             }
+            
+            randomPracticeTag.style.display = 'none';
+            randomPracticeInfo.style.display = 'none';
             
             // 重置練習狀態
             resetPracticeState();
@@ -4000,6 +4321,7 @@
             subCatalogInterface.style.display = 'none';
             wrongQuestionsCatalog.style.display = 'none';
             mainCatalogInterface.style.display = 'block';
+            chapterRandomContainer.style.display = 'none';
         }
         
         // 返回目錄（從練習介面）
@@ -4013,6 +4335,9 @@
             } else {
                 mainCatalogInterface.style.display = 'block';
             }
+            
+            // 重置隨機模式標記
+            isRandomMode = false;
         }
         
         // 重置練習狀態
@@ -4034,7 +4359,7 @@
             
             // 更新問題資訊
             questionTextElement.textContent = question.text;
-            questionIdElement.textContent = `問題 #${question.id}`;
+            questionIdElement.textContent = `問題 #${index + 1}`;
             moduleInfoElement.textContent = question.module;
             currentQuestionElement.textContent = index + 1;
             totalQuestionsElement.textContent = currentQuestions.length;
@@ -4166,13 +4491,23 @@
                 if (!isWrongQuestionsMode) {
                     const sectionKey = currentTopic.charAt(0);
                     const section = catalog[sectionKey];
-                    const subdirectory = section.subdirectories.find(s => s.id === currentTopic);
+                    let topicName = '';
                     
-                    if (subdirectory) {
+                    // 如果是隨機模式，使用題目本身的主題信息
+                    if (isRandomMode && question.topicName) {
+                        topicName = question.topicName;
+                    } else if (section) {
+                        const subdirectory = section.subdirectories.find(s => s.id === currentTopic);
+                        if (subdirectory) {
+                            topicName = `${sectionKey}. ${section.title} - ${subdirectory.name}`;
+                        }
+                    }
+                    
+                    if (topicName) {
                         wrongQuestionsManager.addWrongQuestion(
                             question,
-                            currentTopic,
-                            `${sectionKey}. ${section.title} - ${subdirectory.name}`
+                            question.topicId || currentTopic,
+                            topicName
                         );
                         
                         // 更新錯題庫徽章
@@ -4293,6 +4628,4 @@
     </script>
 </body>
 </html>
-
-
 
